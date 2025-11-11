@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Python Developer & AI Integration Specialist</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Dev<span class="accent">.</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#portfolio">Портфолио</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="circuit-lines">
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                                <h1 class="hero-title">
+                    <span class="gradient-text">Александр Шатайло</span>
+                    <br>Python Developer
+                </h1>
+                <p class="hero-subtitle">
+                    Создаю Telegram-ботов, веб-сервисы и автоматизирую бизнес-процессы. Специализируюсь на асинхронной разработке и AI-интеграциях
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Связаться со мной</a>
+                    <a href="#portfolio" class="btn btn-secondary">Мои проекты</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-animation">
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Что я делаю</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>Telegram Боты</h3>
+                    <p>Разработка функциональных ботов для автоматизации бизнеса, приема заказов, поддержки клиентов</p>
+                    <ul class="tech-stack">
+                        <li>aiogram</li>
+                        <li>python-telegram-bot</li>
+                        <li>SQLAlchemy</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Веб-сервисы</h3>
+                    <p>Создание REST API, веб-приложений и микросервисов с современным стеком технологий</p>
+                    <ul class="tech-stack">
+                        <li>FastAPI</li>
+                        <li>Django</li>
+                        <li>PostgreSQL</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🧠</div>
+                    <h3>Интеграция AI</h3>
+                    <p>Внедрение ChatGPT, Claude, Midjourney и других AI-моделей в ваши проекты</p>
+                    <ul class="tech-stack">
+                        <li>OpenAI API</li>
+                        <li>LangChain</li>
+                        <li>RAG Systems</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Автоматизация</h3>
+                    <p>Написание скриптов для парсинга, обработки данных и автоматизации рутинных задач</p>
+                    <ul class="tech-stack">
+                        <li>Selenium</li>
+                        <li>BeautifulSoup</li>
+                        <li>Pandas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Портфолио</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <div class="placeholder-img">🛍️</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Poizon Sync — Веб-сервис синхронизации товаров</h3>
+                        <p>Автоматизация загрузки товаров из Poizon в WooCommerce с AI-генерацией SEO-описаний. Экономия 40 часов/месяц, загрузка 50 товаров за 5-7 минут</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Flask</span>
+                            <span class="tag">GigaChat AI</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">REST API</span>
+                        </div>
+                        <a href="https://github.com/Skifmail/SEO-Poizon-Wordpress" target="_blank" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <div class="placeholder-img">🧠</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Психолог Бот — Telegram-бот записи к психологу</h3>
+                        <p>Автоматизация записи клиентов с системой напоминаний, управлением расписанием и уведомлениями. Запись 24/7 без звонков</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">aiogram 3.4</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">APScheduler</span>
+                            <span class="tag">FSM</span>
+                        </div>
+                        <a href="https://github.com/Skifmail/PsychologistShatayloBot" target="_blank" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <div class="placeholder-img">�</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>WB Position Bot — Мониторинг позиций на Wildberries</h3>
+                        <p>Автоматизация отслеживания ранжирования товаров на Wildberries. Мониторинг каждые 10 минут, поддержка 85 регионов России</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">aiogram 3.x</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">asyncio</span>
+                            <span class="tag">APScheduler</span>
+                        </div>
+                        <a href="https://github.com/Skifmail/WbPositionBot" target="_blank" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Связаться со мной</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p class="contact-description">
+                        Готов обсудить ваш проект и помочь реализовать идею. 
+                        Свяжитесь удобным способом:
+                    </p>
+                    <div class="contact-methods">
+                        <a href="https://t.me/skifmail" class="contact-link" target="_blank">
+                            <span class="contact-icon">📱</span>
+                            <span>Telegram: @skifmail</span>
+                        </a>
+                        <a href="mailto:aleksandr.shataylo@mail.ru" class="contact-link">
+                            <span class="contact-icon">✉️</span>
+                            <span>aleksandr.shataylo@mail.ru</span>
+                        </a>
+                        <a href="https://github.com/Skifmail" class="contact-link" target="_blank">
+                            <span class="contact-icon">💻</span>
+                            <span>GitHub: Skifmail</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                        <input type="text" name="contact" placeholder="Telegram или телефон для связи" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <textarea name="message" placeholder="Расскажите о вашем проекте" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Александр Шатайло. Python Developer | Сочи</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
