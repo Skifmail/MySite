@@ -3,7 +3,185 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initFormHandler();
     initNavbarScroll();
+    createFloatingParticles();
+    initProjectModals();
 });
+
+function initProjectModals() {
+    const projectData = {
+        poizon: {
+            title: 'Poizon Sync — Веб-сервис синхронизации товаров',
+            description: 'Автоматизированная система для загрузки товаров из китайского маркетплейса Poizon в WooCommerce с AI-генерацией SEO-оптимизированных описаний. Система экономит 40 часов работы в месяц и позволяет загружать 50 товаров за 5-7 минут вместо часа ручной работы.',
+            screenshots: [
+                {
+                    image: '/static/images/веб-сервис 1.png',
+                    title: 'Главная страница сервиса',
+                    description: 'Интерфейс для ввода ссылок на товары и настройки параметров синхронизации. Простой и интуитивно понятный дизайн.'
+                },
+                {
+                    image: '/static/images/веб-сервис 2.png',
+                    title: 'Процесс синхронизации',
+                    description: 'Real-time отображение прогресса загрузки товаров с использованием Server-Sent Events (SSE). Пользователь видет каждый этап обработки.'
+                },
+                {
+                    image: '/static/images/веб-сервис 3.png',
+                    title: 'Результаты работы',
+                    description: 'Завершенная синхронизация с полной статистикой и детальной информацией о загруженных товарах.'
+                }
+            ]
+        },
+        psychologist: {
+            title: 'Психолог Бот — Telegram-бот записи к психологу',
+            description: 'Полнофункциональный Telegram-бот для автоматизации записи клиентов на приём к психологу. Система включает управление расписанием, автоматические напоминания за 24 часа и в день приёма, полную автоматизацию административных задач. Бот работает 24/7, освобождая психолога от рутинной работы с записями.',
+            screenshots: [
+                {
+                    title: 'Главное меню бота',
+                    description: 'Интуитивный интерфейс с кнопками для записи на приём, просмотра расписания и управления записями. Реализован на aiogram 3.4 с использованием FSM.'
+                },
+                {
+                    title: 'Процесс записи',
+                    description: 'Пошаговый процесс выбора даты и времени с проверкой доступности слотов в реальном времени. PostgreSQL обеспечивает надёжное хранение данных.'
+                },
+                {
+                    title: 'Система напоминаний',
+                    description: 'APScheduler автоматически отправляет напоминания клиентам за 24 часа и в день приёма. Снижает количество пропущенных сессий.'
+                },
+                {
+                    title: 'Админ-панель психолога',
+                    description: 'Управление расписанием, просмотр всех записей, статистика посещений и возможность отмены/переноса приёмов.'
+                }
+            ]
+        },
+        'wb-position': {
+            title: 'WB Position Bot — Мониторинг позиций на Wildberries',
+            description: 'Telegram-бот помогает продавцам на Wildberries отслеживать, на какой позиции находятся их товары в поисковой выдаче. Когда покупатель ищет товар по запросу (например, "кроссовки Nike"), важно знать на каком месте показывается ваш товар — на 1-й странице или на 10-й. Бот автоматически проверяет позиции каждые 10 минут и присылает уведомления, если товар поднялся или опустился в выдаче.',
+            screenshots: [
+                {
+                    title: 'Добавление товаров для отслеживания',
+                    description: 'Укажите артикул товара Wildberries и поисковый запрос, по которому хотите отслеживать позицию (например, "женские кроссовки"). Бот начнёт автоматический мониторинг.'
+                },
+                {
+                    title: 'Отслеживание позиций в реальном времени',
+                    description: 'Каждые 10 минут бот проверяет, на какой позиции находится ваш товар в поиске Wildberries. Например: товар был на 15 месте, стал на 8 — вы сразу получите уведомление.'
+                },
+                {
+                    title: 'Мониторинг по регионам',
+                    description: 'На Wildberries позиции товара отличаются в разных городах. Бот проверяет позиции в 85 регионах России — так вы понимаете, где товар показывается лучше, а где хуже.'
+                },
+                {
+                    title: 'История изменений и аналитика',
+                    description: 'Все изменения позиций сохраняются в базе данных. Вы видите графики: как менялась позиция за неделю/месяц, в какое время товар поднимался выше, какие действия помогли улучшить ранжирование.'
+                }
+            ]
+        }
+    };
+
+    const modal = document.getElementById('projectModal');
+    const modalBody = document.getElementById('modalBody');
+    const closeBtn = document.querySelector('.modal-close');
+
+    document.querySelectorAll('.portfolio-item[data-project]').forEach(item => {
+        const projectId = item.dataset.project;
+        const project = projectData[projectId];
+        
+        if (!project) return;
+        
+        item.style.cursor = 'pointer';
+        
+        // Останавливаем всплытие клика от ссылки
+        const link = item.querySelector('.project-link');
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+        
+        item.addEventListener('click', () => {
+            showModal(project);
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    function showModal(project) {
+        const screenshotsHTML = project.screenshots.map(screenshot => `
+            <div class="screenshot-item">
+                ${screenshot.image ? `<img src="${screenshot.image}" alt="${screenshot.title}" loading="lazy">` : ''}
+                <div class="screenshot-description">
+                    <h3>${screenshot.title}</h3>
+                    <p>${screenshot.description}</p>
+                </div>
+            </div>
+        `).join('');
+
+        modalBody.innerHTML = `
+            <h2>${project.title}</h2>
+            <p>${project.description}</p>
+            <div class="modal-screenshots">
+                ${screenshotsHTML}
+            </div>
+        `;
+
+        modal.classList.add('active');
+    }
+}
+
+function createFloatingParticles() {
+    const hero = document.querySelector('.hero');
+    const particlesCount = 30;
+    
+    for (let i = 0; i < particlesCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 4 + 2}px;
+            height: ${Math.random() * 4 + 2}px;
+            background: rgba(99, 102, 241, ${Math.random() * 0.5 + 0.3});
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: float-particle ${Math.random() * 10 + 15}s ease-in-out infinite;
+            animation-delay: ${Math.random() * 5}s;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        `;
+        hero.appendChild(particle);
+    }
+    
+    // Add CSS animation
+    if (!document.querySelector('#particle-animation')) {
+        const style = document.createElement('style');
+        style.id = 'particle-animation';
+        style.textContent = `
+            @keyframes float-particle {
+                0%, 100% {
+                    transform: translate(0, 0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
 
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -25,18 +203,29 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.transform = 'translateY(0) scale(1)';
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
 
-    document.querySelectorAll('.service-card, .portfolio-item').forEach(el => {
+    document.querySelectorAll('.service-card, .portfolio-item').forEach((el, index) => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transform = 'translateY(50px) scale(0.95)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.1}s`;
         observer.observe(el);
+    });
+    
+    // Parallax effect для hero секции
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero');
+        if (hero && scrolled < window.innerHeight) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            hero.style.opacity = 1 - (scrolled / window.innerHeight);
+        }
     });
 }
 
@@ -110,3 +299,16 @@ function initFormHandler() {
         }
     });
 }
+
+// Cookie Consent
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookieConsent').classList.add('hidden');
+}
+
+// Check if cookie consent was given
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('cookieConsent') === 'accepted') {
+        document.getElementById('cookieConsent').classList.add('hidden');
+    }
+});
