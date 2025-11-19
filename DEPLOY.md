@@ -105,3 +105,59 @@ certbot --nginx -d ваш-домен.ru -d www.ваш-домен.ru
 
 ---
 🎉 **Готово! Ваш сайт должен быть доступен по адресу вашего домена.**
+
+## 8. SSH-ключи и доступ к серверу (рекомендуется)
+
+1. На вашей локальной машине проверьте наличие ключей:
+```bash
+ls -al ~/.ssh
+```
+
+2. Если ключа нет, сгенерируйте ed25519 ключ командой:
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+Оставьте путь по умолчанию (`~/.ssh/id_ed25519`) и задайте passphrase по желанию.
+
+3. Самый простой способ добавить ключ на сервер — использовать `ssh-copy-id`:
+```bash
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server_ip
+```
+Эта команда автоматически добавит ваш публичный ключ в `/home/user/.ssh/authorized_keys` на сервере.
+
+4. Если `ssh-copy-id` недоступен, можно вручную: на локальной машине
+```bash
+cat ~/.ssh/id_ed25519.pub | ssh user@server_ip "mkdir -p ~/.ssh 6 chmod 700 ~/.ssh 6 cat >> ~/.ssh/authorized_keys 6 chmod 600 ~/.ssh/authorized_keys"
+```
+
+5. После добавления ключа проверьте подключение:
+```bash
+ssh user@server_ip
+```
+
+6. (Опция) Создайте обычного пользователя на сервере и добавьте его в sudoers для безопасной работы:
+```bash
+adduser deployer
+usermod -aG sudo deployer
+su - deployer
+```
+
+7. (Опция) Добавление SSH-ключа в GitHub (для push по SSH):
+ - Скопируйте публичный ключ: `cat ~/.ssh/id_ed25519.pub`
+ - Вставьте его в GitHub → Settings → SSH and GPG keys → New SSH key
+
+8. (Опция) Чтобы снизить вероятность ошибок, можно создать алиас в `~/.ssh/config`:
+```
+Host myvps
+	HostName server_ip
+	User deployer
+	IdentityFile ~/.ssh/id_ed25519
+```
+Теперь подключение — `ssh myvps`.
+
+9. Дополнительно: после проверки работы ключей можно отключить пароли в `/etc/ssh/sshd_config`:
+```
+PasswordAuthentication no
+PermitRootLogin prohibit-password
+```
+и перезагрузить SSH: `sudo systemctl restart sshd`.
