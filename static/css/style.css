@@ -95,6 +95,50 @@ body {
     color: var(--accent);
 }
 
+.nav-cta {
+    padding: 0.6rem 1.2rem;
+    background: var(--gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    animation: pulse-glow 2s infinite;
+}
+
+.nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
+    filter: brightness(1.1);
+}
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-card);
+    border-radius: 5px;
+    border: 2px solid var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -581,8 +625,9 @@ body {
 
 .service-card:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3), inset 0 0 20px rgba(99, 102, 241, 0.1);
     border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .service-icon {
@@ -863,6 +908,33 @@ body {
 
 .portfolio-item:hover::after {
     opacity: 1;
+}
+
+.portfolio-hint {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(10, 14, 39, 0.8);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+}
+
+.portfolio-item:hover .portfolio-hint {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    opacity: 1;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
 }
 
 .portfolio-item:hover {
