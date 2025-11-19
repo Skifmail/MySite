@@ -1,0 +1,13 @@
+[Unit]
+Description=MySite Email Forwarder Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/root/MySite
+ExecStart=/root/MySite/.venv/bin/python email_forwarder.py
+Restart=always
+EnvironmentFile=/root/MySite/.env
+
+[Install]
+WantedBy=multi-user.target

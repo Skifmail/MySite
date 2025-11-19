@@ -1,0 +1,12 @@
+[Unit]
+Description=MySite FastAPI Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/root/MySite
+ExecStart=/root/MySite/.venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
