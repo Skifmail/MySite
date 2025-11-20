@@ -218,8 +218,11 @@ function initScrollAnimations() {
         observer.observe(el);
     });
     
-    // Parallax effect для hero секции
+    // Parallax effect для hero секции (только на десктопе)
     window.addEventListener('scroll', () => {
+        // Отключаем параллакс на мобильных устройствах
+        if (window.innerWidth <= 768) return;
+        
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         if (hero && scrolled < window.innerHeight) {
