@@ -148,6 +148,7 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    background: var(--bg-primary); /* Явно задал фон, чтобы через него ничего не просвечивало */
 }
 
 .hero::before {
@@ -588,7 +589,7 @@ body {
     padding: 5rem 0;
     background: var(--bg-secondary);
     position: relative;
-    z-index: 1;
+    z-index: 2; /* Поднял выше, чтобы перекрывал псевдоэлементы hero, но не сам контент */
 }
 
 .services-grid {
@@ -669,7 +670,7 @@ body {
     padding: 5rem 0;
     background: var(--bg-secondary);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .process-steps {
