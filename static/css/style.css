@@ -1405,10 +1405,13 @@ body {
         justify-content: center;
     }
 
+    .hero {
+        padding-top: 260px;
+    }
+
     .hero .container {
         grid-template-columns: 1fr;
         text-align: center;
-        padding-top: 2rem;
     }
 
     .hero-intro {
