@@ -19,6 +19,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
 }
 
 @keyframes gradientShift {
@@ -146,6 +147,7 @@ body {
     padding-top: 80px;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .hero::before {
