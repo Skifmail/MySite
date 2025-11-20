@@ -1408,7 +1408,10 @@ body {
     }
 
     .hero {
-        padding-top: 260px;
+        padding-top: 180px; /* Уменьшил, так как меню перестроилось */
+        padding-bottom: 4rem;
+        min-height: auto; /* Высота по контенту, чтобы ничего не обрезалось и не наезжало */
+        height: auto;
     }
 
     .hero .container {
