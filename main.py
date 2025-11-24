@@ -187,6 +187,12 @@ async def yandex_verification() -> FileResponse:
     return FileResponse("static/yandex_d2c11f07f510ffb1.html")
 
 
+@app.get("/google33b65dba152aabfb.html", response_class=FileResponse)
+async def google_verification() -> FileResponse:
+    """Google Search Console verification file."""
+    return FileResponse("static/google33b65dba152aabfb.html")
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
     """Health check endpoint."""
