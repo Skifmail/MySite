@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from pydantic import BaseModel, EmailStr
 from pathlib import Path
 import httpx
@@ -167,6 +167,18 @@ async def webhook(webhook_data: WebhookData) -> dict[str, str]:
     message_text = format_webhook_message(webhook_data.source, webhook_data.data)
     await send_telegram_message(message_text)
     return {"status": "success", "source": webhook_data.source}
+
+
+@app.get("/robots.txt", response_class=FileResponse)
+async def robots() -> FileResponse:
+    """Serve robots.txt file."""
+    return FileResponse("static/robots.txt")
+
+
+@app.get("/sitemap.xml", response_class=FileResponse)
+async def sitemap() -> FileResponse:
+    """Serve sitemap.xml file."""
+    return FileResponse("static/sitemap.xml")
 
 
 @app.get("/health")
