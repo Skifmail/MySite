@@ -181,6 +181,12 @@ async def sitemap() -> FileResponse:
     return FileResponse("static/sitemap.xml")
 
 
+@app.get("/yandex_d2c11f07f510ffb1.html", response_class=FileResponse)
+async def yandex_verification() -> FileResponse:
+    """Yandex Webmaster verification file."""
+    return FileResponse("static/yandex_d2c11f07f510ffb1.html")
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
     """Health check endpoint."""
