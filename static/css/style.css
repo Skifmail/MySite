@@ -1,14 +1,14 @@
 :root {
-    --bg-primary: #0a0e27;
-    --bg-secondary: #151932;
-    --bg-card: #1a1f3a;
+    --bg-primary: #050816;
+    --bg-secondary: #0a0f2c;
+    --bg-card: rgba(26, 31, 58, 0.7);
     --text-primary: #ffffff;
-    --text-secondary: #a0aec0;
+    --text-secondary: #cbd5e0;
     --accent: #6366f1;
     --accent-dark: #4f46e5;
-    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-alt: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --gradient-alt: linear-gradient(135deg, #f472b6 0%, #f5576c 100%);
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -30,18 +30,46 @@ html {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(
-        -45deg,
-        #050816,
-        #0a0f2c,
-        #0d1b2a,
-        #050816
-    );
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Spotlight Effect */
+.service-card, .portfolio-item, .benefit-card, .pricing-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-card);
+}
+
+.service-card::after, .portfolio-item::after, .benefit-card::after, .pricing-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(99, 102, 241, 0.15), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.service-card:hover::after, .portfolio-item:hover::after, .benefit-card:hover::after, .pricing-card:hover::after {
+    opacity: 1;
 }
 
 .container {
@@ -148,7 +176,7 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
-    background: var(--bg-primary); /* Явно задал фон, чтобы через него ничего не просвечивало */
+    background: transparent;
 }
 
 .hero::before {

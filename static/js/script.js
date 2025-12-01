@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initFormHandler();
     initNavbarScroll();
-    createFloatingParticles();
+    initNavbarScroll();
     initProjectModals();
 });
 
@@ -83,11 +83,11 @@ function initProjectModals() {
     document.querySelectorAll('.portfolio-item[data-project]').forEach(item => {
         const projectId = item.dataset.project;
         const project = projectData[projectId];
-        
+
         if (!project) return;
-        
+
         item.style.cursor = 'pointer';
-        
+
         // Останавливаем всплытие клика от ссылки
         const link = item.querySelector('.project-link');
         if (link) {
@@ -95,7 +95,7 @@ function initProjectModals() {
                 e.stopPropagation();
             });
         }
-        
+
         item.addEventListener('click', () => {
             showModal(project);
         });
@@ -134,54 +134,7 @@ function initProjectModals() {
     }
 }
 
-function createFloatingParticles() {
-    const hero = document.querySelector('.hero');
-    const particlesCount = 30;
-    
-    for (let i = 0; i < particlesCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 4 + 2}px;
-            height: ${Math.random() * 4 + 2}px;
-            background: rgba(99, 102, 241, ${Math.random() * 0.5 + 0.3});
-            border-radius: 50%;
-            left: ${Math.random() * 100}%;
-            top: ${Math.random() * 100}%;
-            animation: float-particle ${Math.random() * 10 + 15}s ease-in-out infinite;
-            animation-delay: ${Math.random() * 5}s;
-            pointer-events: none;
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-        `;
-        hero.appendChild(particle);
-    }
-    
-    // Add CSS animation
-    if (!document.querySelector('#particle-animation')) {
-        const style = document.createElement('style');
-        style.id = 'particle-animation';
-        style.textContent = `
-            @keyframes float-particle {
-                0%, 100% {
-                    transform: translate(0, 0);
-                    opacity: 0;
-                }
-                10% {
-                    opacity: 1;
-                }
-                90% {
-                    opacity: 1;
-                }
-                100% {
-                    transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-}
+
 
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -217,12 +170,12 @@ function initScrollAnimations() {
         el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.1}s`;
         observer.observe(el);
     });
-    
+
     // Parallax effect для hero секции (только на десктопе)
     window.addEventListener('scroll', () => {
         // Отключаем параллакс на мобильных устройствах
         if (window.innerWidth <= 768) return;
-        
+
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         if (hero && scrolled < window.innerHeight) {
@@ -251,10 +204,10 @@ function initNavbarScroll() {
 
 function initFormHandler() {
     const form = document.getElementById('contactForm');
-    
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const formData = new FormData(form);
         const data = {
             name: formData.get('name'),
@@ -262,12 +215,12 @@ function initFormHandler() {
             email: formData.get('email'),
             message: formData.get('message')
         };
-        
+
         const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
         btn.textContent = 'Отправка...';
         btn.disabled = true;
-        
+
         try {
             const response = await fetch('/api/contact', {
                 method: 'POST',
@@ -276,12 +229,12 @@ function initFormHandler() {
                 },
                 body: JSON.stringify(data)
             });
-            
+
             if (response.ok) {
                 btn.textContent = 'Отправлено ✓';
                 btn.style.background = '#10b981';
                 form.reset();
-                
+
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.style.background = '';
@@ -293,7 +246,7 @@ function initFormHandler() {
         } catch (error) {
             btn.textContent = 'Ошибка ✗';
             btn.style.background = '#ef4444';
-            
+
             setTimeout(() => {
                 btn.textContent = originalText;
                 btn.style.background = '';
