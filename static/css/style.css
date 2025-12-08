@@ -179,9 +179,10 @@ body {
     background: transparent;
 }
 
-.hero::before {
+/* Global Background Animation */
+body::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: -50%;
     right: -10%;
     width: 80%;
@@ -189,11 +190,13 @@ body {
     background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     animation: float 20s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
 }
 
-.hero::after {
+body::after {
     content: '';
-    position: absolute;
+    position: fixed;
     bottom: -30%;
     left: -10%;
     width: 60%;
@@ -201,6 +204,8 @@ body {
     background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     animation: float 15s ease-in-out infinite reverse;
+    z-index: -1;
+    pointer-events: none;
 }
 
 @keyframes float {
@@ -213,13 +218,14 @@ body {
 }
 
 .circuit-lines {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
     opacity: 0.3;
+    z-index: 0;
 }
 
 .circuit-line {
@@ -1143,6 +1149,35 @@ body {
 
 .placeholder-img {
     font-size: 4rem;
+}
+
+/* --- Unified background: use only the hero-style background/animation globally --- */
+.services,
+.process,
+.benefits,
+.testimonials,
+.faq,
+.portfolio,
+.pricing,
+.contact {
+    background: transparent;
+    position: relative;
+    overflow: visible;
+}
+
+.services::before,
+.services::after,
+.process::before,
+.benefits::before,
+.testimonials::before,
+.faq::before,
+.portfolio::before,
+.portfolio::after,
+.pricing::before,
+.pricing::after,
+.contact::before,
+.contact::after {
+    display: none;
 }
 
 .portfolio-content {
