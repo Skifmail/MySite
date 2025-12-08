@@ -169,16 +169,12 @@ function initScrollAnimations() {
         observer.observe(el);
     });
 
-    // Parallax effect для hero секции (только на десктопе)
+    // Отключаем параллакс, чтобы секции не перекрывались при прокрутке
     window.addEventListener('scroll', () => {
-        // Отключаем параллакс на мобильных устройствах
-        if (window.innerWidth <= 768) return;
-
-        const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
-        if (hero && scrolled < window.innerHeight) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            hero.style.opacity = 1 - (scrolled / window.innerHeight);
+        if (hero) {
+            hero.style.transform = 'translateY(0)';
+            hero.style.opacity = '1';
         }
     });
 }
