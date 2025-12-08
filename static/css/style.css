@@ -1228,10 +1228,10 @@ body::after {
 /* Pricing Section */
 .pricing {
     padding: 5rem 0;
-    background: var(--bg-primary);
+    background: transparent;
     position: relative;
     z-index: 1;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .pricing::before,
@@ -1360,10 +1360,10 @@ body::after {
 
 .contact {
     padding: 5rem 0;
-    background: var(--bg-secondary);
+    background: transparent;
     position: relative;
     z-index: 1;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .contact::before,
