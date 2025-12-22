@@ -249,19 +249,19 @@ function initFormHandler() {
     });
 }
 
-// Cookie Consent
-function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    const cookieConsent = document.getElementById('cookieConsent');
-    if (cookieConsent) {
-        cookieConsent.classList.add('hidden');
+// Privacy Consent
+function acceptPrivacy() {
+    localStorage.setItem('privacyConsent', 'accepted');
+    const privacyNotice = document.getElementById('privacyNotice');
+    if (privacyNotice) {
+        privacyNotice.classList.add('hidden');
     }
 }
 
-// Check if cookie consent was given
+// Check if privacy consent was given
 document.addEventListener('DOMContentLoaded', () => {
-    const cookieConsent = document.getElementById('cookieConsent');
-    if (cookieConsent && localStorage.getItem('cookieConsent') === 'accepted') {
-        cookieConsent.classList.add('hidden');
+    const privacyNotice = document.getElementById('privacyNotice');
+    if (privacyNotice && localStorage.getItem('privacyConsent') === 'accepted') {
+        privacyNotice.classList.add('hidden');
     }
 });
