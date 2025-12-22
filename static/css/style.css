@@ -1523,15 +1523,6 @@ body::after {
     flex-wrap: wrap;
 }
 
-.cookie-content p {
-    margin: 0;
-    flex: 1;
-    min-width: 250px;
-}
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
 .privacy-content p {
     margin: 0;
     flex: 1;
@@ -1545,7 +1536,9 @@ body::after {
 
 .privacy-content button {
     white-space: nowrap;
-}* Modal Styles */
+}
+
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;

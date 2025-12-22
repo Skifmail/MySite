@@ -77,6 +77,10 @@ function initProjectModals() {
     const modalBody = document.getElementById('modalBody');
     const closeBtn = document.querySelector('.modal-close');
 
+    if (!modal || !modalBody || !closeBtn) {
+        return;
+    }
+
     document.querySelectorAll('.portfolio-item[data-project]').forEach(item => {
         const projectId = item.dataset.project;
         const project = projectData[projectId];
