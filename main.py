@@ -193,6 +193,17 @@ async def google_verification() -> FileResponse:
     return FileResponse("static/google33b65dba152aabfb.html")
 
 
+@app.get(
+    "/zen_v3WJ79cuC4QxlLvNBlwLN6X1fEYJL9XIpKwjA5l75Fkps2IcQUSiR6xUnODOs5wo.html",
+    response_class=FileResponse,
+)
+async def zen_verification() -> FileResponse:
+    """Yandex Zen verification file."""
+    return FileResponse(
+        "static/zen_v3WJ79cuC4QxlLvNBlwLN6X1fEYJL9XIpKwjA5l75Fkps2IcQUSiR6xUnODOs5wo.html"
+    )
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
     """Health check endpoint."""
