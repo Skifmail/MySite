@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initFormHandler();
     initNavbarScroll();
-    initNavbarScroll();
     initProjectModals();
 });
 
@@ -253,12 +252,16 @@ function initFormHandler() {
 // Cookie Consent
 function acceptCookies() {
     localStorage.setItem('cookieConsent', 'accepted');
-    document.getElementById('cookieConsent').classList.add('hidden');
+    const cookieConsent = document.getElementById('cookieConsent');
+    if (cookieConsent) {
+        cookieConsent.classList.add('hidden');
+    }
 }
 
 // Check if cookie consent was given
 document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('cookieConsent') === 'accepted') {
-        document.getElementById('cookieConsent').classList.add('hidden');
+    const cookieConsent = document.getElementById('cookieConsent');
+    if (cookieConsent && localStorage.getItem('cookieConsent') === 'accepted') {
+        cookieConsent.classList.add('hidden');
     }
 });
