@@ -1538,6 +1538,13 @@ body::after {
     white-space: nowrap;
 }
 
+.footer {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Modal Styles */
 .modal {
     display: none;
