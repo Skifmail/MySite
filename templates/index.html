@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Александр Шатайло | Python Разработчик</title>
-    <meta name="description" content="Портфолио Александра Шатайло. Разработка Telegram-ботов, парсинг данных, автоматизация бизнес-процессов и интеграция AI (ChatGPT, Claude). Python, FastAPI, Aiogram.">
+    <title>Александр Шатайло | Python Разработчик & AI Интегратор</title>
+    <meta name="description" content="Портфолио Александра Шатайло. Разработка Telegram-ботов, автоматизация бизнес-процессов, AI интеграция. Python, FastAPI, Aiogram.">
     <meta name="keywords" content="Александр Шатайло, Python разработчик, создание телеграм ботов, парсинг сайтов, автоматизация бизнеса, AI интеграция, FastAPI, Aiogram, разработка на заказ">
     <meta name="author" content="Александр Шатайло">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -35,20 +35,15 @@
       "url": "https://aleks-shataylo.ru",
       "image": "https://aleks-shataylo.ru/static/images/avatar.png",
       "jobTitle": "Python Developer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Freelance"
-      },
-      "sameAs": [
-        "https://t.me/aleks_shataylo"
-      ],
+      "worksFor": { "@type": "Organization", "name": "Freelance" },
+      "sameAs": [ "https://t.me/aleks_shataylo" ],
       "description": "Python разработчик, специализирующийся на создании Telegram-ботов, парсинге данных и автоматизации бизнес-процессов с использованием AI."
     }
     </script>
 
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
     <link rel="stylesheet" href="/static/css/style.css">
-    
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
@@ -57,535 +52,506 @@
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
         })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105449512', 'ym');
-
         ym(105449512, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/105449512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
-    <canvas id="bg-canvas"></canvas>
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">Александр Шатайло</div>
-            <ul class="nav-links">
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#services">Услуги</a></li>
-                <li><a href="#portfolio">Портфолио</a></li>
-                <li><a href="#pricing">Цены</a></li>
-            </ul>
-            <a href="#contact" class="nav-cta">Связаться со мной</a>
-        </div>
-    </nav>
 
-    <div class="circuit-lines">
-        <div class="circuit-line"></div>
-        <div class="circuit-line"></div>
-        <div class="circuit-line"></div>
-        <div class="circuit-line"></div>
-        <div class="circuit-line vertical"></div>
-        <div class="circuit-line vertical"></div>
-        <div class="circuit-line vertical"></div>
+<canvas id="bg-canvas"></canvas>
+
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#home" class="nav-logo">Александр<span> </span>Шатайло</a>
+        <ul class="nav-links">
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="#portfolio">Портфолио</a></li>
+            <li><a href="#process">Процесс</a></li>
+            <li><a href="#pricing">Цены</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Написать →</a>
     </div>
+</nav>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-intro">
-                    <img src="/static/images/avatar.png" alt="Александр Шатайло" class="hero-avatar">
-                    <div>
-                        <h1 class="hero-title">
-                            <span class="gradient-text">Александр Шатайло</span> 👋
-                        </h1>
-                        <p class="hero-tagline">Python Разработчик</p>
-                    </div>
-                </div>
+<section id="home">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-tag">Доступен для проектов</div>
+                <h1 class="hero-name">
+                    Александр<br>
+                    <span class="line2">Шатайло</span>
+                </h1>
                 <p class="hero-subtitle">
-                    Помогаю бизнесу экономить время через автоматизацию. Уже 3 года разрабатываю ботов и сервисы, которые работают 24/7 вместо людей — принимают заказы, отвечают клиентам, обрабатывают данные.
+                    Python-разработчик из Сочи. Создаю ботов, сервисы автоматизации и AI-интеграции, которые работают 24/7 вместо людей. Уже 3 года помогаю бизнесу освобождать время от рутины.
                 </p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn-primary">Обсудить проект</a>
+                    <a href="#portfolio" class="btn-secondary">Смотреть работы</a>
+                </div>
                 <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">⚡</span>
-                        <span class="stat-value">15+</span>
-                        <span class="stat-label">проектов создано для бизнеса</span>
+                    <div class="stat">
+                        <div class="stat-num">15<span>+</span></div>
+                        <div class="stat-label">проектов сдано</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">💰</span>
-                        <span class="stat-value">40ч</span>
-                        <span class="stat-label">экономии/месяц с моими проектами</span>
+                    <div class="stat">
+                        <div class="stat-num">40<span>ч</span></div>
+                        <div class="stat-label">экономии/месяц</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">🚀</span>
-                        <span class="stat-value">3 года</span>
-                        <span class="stat-label">опыта разработки </span>
+                    <div class="stat">
+                        <div class="stat-num">3<span> г</span></div>
+                        <div class="stat-label">опыта в Python</div>
                     </div>
-                </div>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Связаться со мной</a>
-                    <a href="#portfolio" class="btn btn-secondary">Мои проекты</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="code-terminal">
-                    <div class="terminal-header">
-                        <span class="terminal-button close"></span>
-                        <span class="terminal-button minimize"></span>
-                        <span class="terminal-button maximize"></span>
-                        <span class="terminal-title">bot.py</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="code-line"><span class="keyword">import</span> aiogram</div>
-                        <div class="code-line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</div>
-                        <div class="code-line"></div>
-                        <div class="code-line"><span class="keyword">async def</span> <span class="function">handle_user</span>():</div>
-                        <div class="code-line">    <span class="comment"># AI-powered bot</span></div>
-                        <div class="code-line">    response = <span class="keyword">await</span> <span class="function">get_ai_response</span>()</div>
-                        <div class="code-line">    <span class="keyword">return</span> response</div>
-                        <div class="terminal-cursor">_</div>
-                    </div>
+            <div class="hero-card">
+                <div class="card-header">
+                    <div class="dot dot-r"></div>
+                    <div class="dot dot-y"></div>
+                    <div class="dot dot-g"></div>
+                    <span class="card-title">flower_bot.py</span>
+                </div>
+                <div class="code-block">
+<span class="c-cm"># 🌸 Telegram бот для заказа цветов</span><br>
+<span class="c-kw">from</span> aiogram <span class="c-kw">import</span> <span class="c-var">Bot</span>, <span class="c-var">Dispatcher</span><br>
+<span class="c-kw">from</span> aiogram.fsm.storage.memory <span class="c-kw">import</span> MemoryStorage<br>
+<br>
+<span class="c-kw">async def</span> <span class="c-fn">handle_order</span>(message):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-cm"># Показываем каталог букетов</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-kw">await</span> message.<span class="c-fn">answer</span>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Выберите букет 💐"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reply_markup=<span class="c-fn">catalog_kb</span>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+<br>
+<span class="c-kw">async def</span> <span class="c-fn">confirm_payment</span>(call):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;order_id = <span class="c-fn">save_order</span>(call.<span class="c-var">data</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-kw">await</span> <span class="c-fn">notify_florist</span>(order_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-kw">return</span> <span class="c-str">"✅ Заказ принят!"</span><span class="cursor"></span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="process" class="process">
-        <div class="container">
-            <h2 class="section-title">Как проходит работа?</h2>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Общаемся в ТГ или как вам удобно</h3>
-                        <p>Обсуждаем вашу задачу, я задаю вопросы и предлагаю решение</p>
-                    </div>
+<div class="section-sep"></div>
+
+<section id="services">
+    <div class="container">
+        <div class="section-label">Что я делаю</div>
+        <h2 class="section-title">Услуги разработки</h2>
+        <p class="section-desc">От простого бота до сложного сервиса с AI — берусь за задачи разной сложности и сдаю в срок.</p>
+
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">🤖</div>
+                <h3>Telegram Боты</h3>
+                <p>Функциональные боты для автоматизации бизнеса: приём заказов, запись клиентов, рассылки, поддержка 24/7.</p>
+                <div class="service-tags">
+                    <span class="tag">aiogram 3.x</span>
+                    <span class="tag">FSM</span>
+                    <span class="tag">PostgreSQL</span>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Оценка и договор</h3>
-                        <p>Называю сроки и стоимость. Без скрытых платежей</p>
-                    </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🌐</div>
+                <h3>Веб-сервисы</h3>
+                <p>REST API, веб-приложения и микросервисы. Современный стек, чистый код, возможность масштабирования.</p>
+                <div class="service-tags">
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Django</span>
+                    <span class="tag">PostgreSQL</span>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Разработка с промежуточными показами</h3>
-                        <p>Показываю прогресс каждые 2-3 дня, вносим правки на ходу</p>
-                    </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🧠</div>
+                <h3>AI Интеграция</h3>
+                <p>Внедрение ChatGPT, Claude, GigaChat в ваши проекты. RAG-системы, автоматическая генерация контента.</p>
+                <div class="service-tags">
+                    <span class="tag">OpenAI API</span>
+                    <span class="tag">LangChain</span>
+                    <span class="tag">RAG</span>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Тестирование и запуск</h3>
-                        <p>Тестируем вместе, исправляю баги, запускаем в работу</p>
-                    </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">⚙️</div>
+                <h3>Автоматизация</h3>
+                <p>Парсинг данных, обработка таблиц, авторассылки, интеграция платформ. Убираю рутину из рабочих процессов.</p>
+                <div class="service-tags">
+                    <span class="tag">Selenium</span>
+                    <span class="tag">BeautifulSoup</span>
+                    <span class="tag">Pandas</span>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h3>Поддержка месяц бесплатно</h3>
-                        <p>Помогаю с вопросами и мелкими доработками</p>
-                    </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">💼</div>
+                <h3>Сайты-визитки</h3>
+                <p>Landing page и портфолио с анимациями. Быстрая загрузка, SEO-оптимизация, мобильная адаптация.</p>
+                <div class="service-tags">
+                    <span class="tag">HTML/CSS/JS</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">SEO</span>
+                </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🔗</div>
+                <h3>API и Интеграции</h3>
+                <p>Подключение платёжных систем, CRM, маркетплейсов. Вебхуки, OAuth, синхронизация данных между сервисами.</p>
+                <div class="service-tags">
+                    <span class="tag">REST API</span>
+                    <span class="tag">Webhooks</span>
+                    <span class="tag">OAuth 2.0</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Что я делаю</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3>Telegram Боты</h3>
-                    <p>Разработка функциональных ботов для автоматизации бизнеса, приема заказов, поддержки клиентов</p>
-                    <ul class="tech-stack">
-                        <li>aiogram</li>
-                        <li>python-telegram-bot</li>
-                        <li>SQLAlchemy</li>
-                    </ul>
-                </div>
+<div class="section-sep"></div>
 
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3>Веб-сервисы</h3>
-                    <p>Создание REST API, веб-приложений и микросервисов с современным стеком технологий</p>
-                    <ul class="tech-stack">
-                        <li>FastAPI</li>
-                        <li>Django</li>
-                        <li>PostgreSQL</li>
-                    </ul>
-                </div>
+<section id="process">
+    <div class="container">
+        <div class="section-label">Как это работает</div>
+        <h2 class="section-title">Процесс работы</h2>
+        <p class="section-desc">Прозрачно и без сюрпризов — от обсуждения задачи до запуска и поддержки.</p>
 
-                <div class="service-card">
-                    <div class="service-icon">🧠</div>
-                    <h3>Интеграция AI</h3>
-                    <p>Внедрение ChatGPT, Claude, Midjourney, GigaChat и других AI-моделей в ваши проекты</p>
-                    <ul class="tech-stack">
-                        <li>OpenAI API</li>
-                        <li>LangChain</li>
-                        <li>RAG Systems</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">⚙️</div>
-                    <h3>Автоматизация</h3>
-                    <p>Написание скриптов для парсинга, обработки данных и автоматизации рутинных задач</p>
-                    <ul class="tech-stack">
-                        <li>Selenium</li>
-                        <li>BeautifulSoup</li>
-                        <li>Pandas</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">💼</div>
-                    <h3>Сайты-визитки, одностраничники</h3>
-                    <p>Современные landing page и портфолио с анимациями и интеграциями. Этот сайт создан мной!</p>
-                    <ul class="tech-stack">
-                        <li>FastAPI</li>
-                        <li>HTML/CSS/JS</li>
-                        <li>Telegram Bot API</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🔗</div>
-                    <h3>API и интеграции</h3>
-                    <p>Подключение платёжных систем, CRM, маркетплейсов. Разработка вебхуков и интеграция сторонних сервисов</p>
-                    <ul class="tech-stack">
-                        <li>REST API</li>
-                        <li>Webhooks</li>
-                        <li>OAuth 2.0</li>
-                    </ul>
-                </div>
+        <div class="process-steps">
+            <div class="process-step reveal">
+                <div class="step-num">1</div>
+                <h4>Общаемся</h4>
+                <p>Обсуждаем задачу в Telegram, уточняю требования и предлагаю решение</p>
+            </div>
+            <div class="process-step reveal">
+                <div class="step-num">2</div>
+                <h4>Оценка</h4>
+                <p>Называю сроки и стоимость. Без скрытых платежей и неожиданных доплат</p>
+            </div>
+            <div class="process-step reveal">
+                <div class="step-num">3</div>
+                <h4>Разработка</h4>
+                <p>Показываю прогресс каждые 2-3 дня, вносим правки на ходу</p>
+            </div>
+            <div class="process-step reveal">
+                <div class="step-num">4</div>
+                <h4>Запуск</h4>
+                <p>Тестируем вместе, исправляю баги, разворачиваем на боевом сервере</p>
+            </div>
+            <div class="process-step reveal">
+                <div class="step-num">5</div>
+                <h4>Поддержка</h4>
+                <p>Месяц бесплатной поддержки после сдачи проекта</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="benefits" class="benefits">
-        <div class="container">
-            <h2 class="section-title">Почему со мной работать удобно?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
-                    <h3>Говорю простым языком</h3>
-                    <p>Без терминов типа "асинхронный REST API с микросервисной архитектурой" — объясняю всё человеческим языком</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
-                    <h3>Отвечаю быстро</h3>
-                    <p>В Telegram обычно в течение часа, даже вечером</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
-                    <h3>Делаю с запасом</h3>
-                    <p>Пишу код так, чтобы его легко было дополнять. Через полгода не придётся переписывать всё заново</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
-                    <h3>Показываю, как пользоваться</h3>
-                    <p>Записываю видео-инструкцию или созваниваюсь и показываю лично</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">✅</div>
-                    <h3>Честно говорю "нет"</h3>
-                    <p>Если задача не моя — скажу сразу и порекомендую специалиста</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="section-sep"></div>
 
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2 class="section-title">Портфолио</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item" data-project="poizon">
-                    <div class="portfolio-hint">👆 Нажми для деталей</div>
-                    <div class="portfolio-image">
-                        <img src="/static/images/веб-сервис 1.png" alt="Poizon Sync - Веб-сервис синхронизации товаров" loading="lazy">
+<section id="portfolio">
+    <div class="container">
+        <div class="section-label">Мои работы</div>
+        <h2 class="section-title">Портфолио</h2>
+        <p class="section-desc">Реальные проекты для реальных задач. Нажмите на карточку, чтобы увидеть детали.</p>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-item reveal" data-project="tennisfan">
+                <div class="portfolio-thumb">
+                    <img src="/static/images/tennisfan_1.png" alt="TennisFan.ru" loading="lazy">
+                </div>
+                <div class="portfolio-body">
+                    <div class="portfolio-type">Веб-платформа</div>
+                    <h3>TennisFan.ru — платформа для теннисистов-любителей</h3>
+                    <p>Платформа для отслеживания теннисных матчей, турниров и статистики. Удобный интерфейс, адаптивная вёрстка.</p>
+                    <div class="portfolio-footer">
+                        <div class="portfolio-tags">
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">REST API</span>
+                        </div>
+                        <a href="https://www.tennisfan.ru" target="_blank" rel="noopener" class="portfolio-link" onclick="event.stopPropagation()">Открыть →</a>
                     </div>
-                    <div class="portfolio-content">
-                        <h3>Poizon Sync — Веб-сервис синхронизации товаров</h3>
-                        <p>Автоматизация загрузки товаров из Poizon в WooCommerce с AI-генерацией SEO-описаний. Экономия 40 часов/месяц, загрузка 50 товаров за 5-7 минут</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item reveal" data-project="poizon">
+                <div class="portfolio-thumb">
+                    <img src="/static/images/веб-сервис 1.png" alt="Poizon Sync" loading="lazy">
+                </div>
+                <div class="portfolio-body">
+                    <div class="portfolio-type">Веб-сервис</div>
+                    <h3>Poizon Sync — синхронизация товаров из Китая</h3>
+                    <p>Автоматизация загрузки товаров из маркетплейса Poizon в WooCommerce с AI-генерацией SEO-описаний. Экономит 40 часов/месяц.</p>
+                    <div class="portfolio-footer">
                         <div class="portfolio-tags">
                             <span class="tag">Flask</span>
                             <span class="tag">GigaChat AI</span>
                             <span class="tag">PostgreSQL</span>
-                            <span class="tag">REST API</span>
                         </div>
-                        <a href="https://github.com/Skifmail/SEO-Poizon-Wordpress" target="_blank" class="project-link">GitHub →</a>
+                        <a href="https://github.com/Skifmail/SEO-Poizon-Wordpress" target="_blank" rel="noopener" class="portfolio-link" onclick="event.stopPropagation()">GitHub →</a>
                     </div>
                 </div>
+            </div>
 
-                <div class="portfolio-item" data-project="psychologist">
-                    <div class="portfolio-hint">👆 Нажми для деталей</div>
-                    <div class="portfolio-image">
-                        <img src="/static/images/psychologist_bot_1.jpg" alt="Психолог Бот - Telegram-бот записи к психологу" loading="lazy">
+            <div class="portfolio-item reveal" data-project="floral-bot">
+                <div class="portfolio-thumb">
+                    <img src="/static/images/bot_1.png" alt="FloralDetailsBot" loading="lazy">
+                </div>
+                <div class="portfolio-body">
+                    <div class="portfolio-type">Telegram-бот</div>
+                    <h3>FloralDetailsBot — бот для заказа цветов</h3>
+                    <p>Полный цикл заказа цветов в Telegram: каталог букетов, выбор доставки, приём заявок, уведомление флориста. Работает 24/7.</p>
+                    <div class="portfolio-footer">
+                        <div class="portfolio-tags">
+                            <span class="tag">aiogram 3.x</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Inline-клавиатуры</span>
+                        </div>
+                        <a href="https://t.me/FloralDetailsBot" target="_blank" rel="noopener" class="portfolio-link" onclick="event.stopPropagation()">@FloralDetailsBot →</a>
                     </div>
-                    <div class="portfolio-content">
-                        <h3>Психолог Бот — Telegram-бот записи к психологу</h3>
-                        <p>Автоматизация записи клиентов с системой напоминаний, управлением расписанием и уведомлениями. Запись 24/7 без звонков</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item reveal" data-project="psychologist">
+                <div class="portfolio-thumb">
+                    <img src="/static/images/psychologist_bot_1.jpg" alt="Психолог Бот" loading="lazy">
+                </div>
+                <div class="portfolio-body">
+                    <div class="portfolio-type">Telegram-бот</div>
+                    <h3>Психолог Бот — запись к специалисту</h3>
+                    <p>Автоматизация записи клиентов на приём с управлением расписанием и напоминаниями за 24 часа и в день приёма.</p>
+                    <div class="portfolio-footer">
                         <div class="portfolio-tags">
                             <span class="tag">aiogram 3.4</span>
-                            <span class="tag">PostgreSQL</span>
                             <span class="tag">APScheduler</span>
                             <span class="tag">FSM</span>
                         </div>
-                        <a href="https://github.com/Skifmail/PsychologistShatayloBot" target="_blank" class="project-link">GitHub →</a>
+                        <a href="https://github.com/Skifmail/PsychologistShatayloBot" target="_blank" rel="noopener" class="portfolio-link" onclick="event.stopPropagation()">GitHub →</a>
                     </div>
                 </div>
+            </div>
 
-                <div class="portfolio-item" data-project="wb-position">
-                    <div class="portfolio-hint">👆 Нажми для деталей</div>
-                    <div class="portfolio-image">
-                        <img src="/static/images/wb_rank_bot_1.jpg" alt="WB Position Bot - Мониторинг позиций на Wildberries" loading="lazy">
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>WB Position Bot — Мониторинг позиций на Wildberries</h3>
-                        <p>Автоматизация отслеживания ранжирования товаров на Wildberries. Мониторинг каждые 10 минут, поддержка 85 регионов России</p>
+            <div class="portfolio-item reveal" data-project="wb-position">
+                <div class="portfolio-thumb">
+                    <img src="/static/images/wb_rank_bot_1.jpg" alt="WB Position Bot" loading="lazy">
+                </div>
+                <div class="portfolio-body">
+                    <div class="portfolio-type">Telegram-бот</div>
+                    <h3>WB Position Bot — мониторинг Wildberries</h3>
+                    <p>Отслеживание позиций товаров в поисковой выдаче Wildberries. Мониторинг каждые 10 минут, 85 регионов, уведомления при изменении.</p>
+                    <div class="portfolio-footer">
                         <div class="portfolio-tags">
                             <span class="tag">aiogram 3.x</span>
-                            <span class="tag">PostgreSQL</span>
                             <span class="tag">asyncio</span>
-                            <span class="tag">APScheduler</span>
+                            <span class="tag">85 регионов</span>
                         </div>
-                        <a href="https://github.com/Skifmail/WbPositionBot" target="_blank" class="project-link">GitHub →</a>
+                        <a href="https://github.com/Skifmail/WbPositionBot" target="_blank" rel="noopener" class="portfolio-link" onclick="event.stopPropagation()">GitHub →</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <div class="portfolio-item" data-project="tennisfan">
-                    <div class="portfolio-hint">👆 Нажми для деталей</div>
-                    <div class="portfolio-image">
-                        <img src="/static/images/tennisfan_1.png" alt="Tennisfan.ru — веб-сервис для любителей тенниса" loading="lazy">
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>Tennisfan.ru — сервис для мониторинга теннисных турниров</h3>
-                        <p>Платформа для отслеживания теннисных матчей, турниров и статистики. Лёгкий интерфейс, адаптивная вёрстка и интеграция с внешними источниками данных.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">FastAPI</span>
-                            <span class="tag">HTML/CSS/JS</span>
-                            <span class="tag">PostgreSQL</span>
+<div class="section-sep"></div>
+
+<section id="testimonials">
+    <div class="container">
+        <div class="section-label">Отзывы</div>
+        <h2 class="section-title">Говорят клиенты</h2>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">Александр сделал бота для записи к психологу за неделю. Теперь клиенты записываются сами, я перестала тратить 2 часа в день на звонки. Бот даже напоминания отправляет!</p>
+                <div class="testimonial-author">Анна</div>
+                <div class="testimonial-role">психолог</div>
+            </div>
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">Нужен был скрипт для выгрузки товаров на сайт. Думал, будет сложно объяснять. Александр сам всё понял с первого раза, сделал за 3 дня. Работает без сбоев уже полгода.</p>
+                <div class="testimonial-author">Дмитрий</div>
+                <div class="testimonial-role">владелец интернет-магазина</div>
+            </div>
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">Сделал интеграцию с ChatGPT в наш CRM. Теперь менеджеры в 3 раза быстрее обрабатывают заявки. Окупилось за месяц.</p>
+                <div class="testimonial-author">Сергей</div>
+                <div class="testimonial-role">руководитель отдела продаж</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<section id="pricing">
+    <div class="container">
+        <div class="section-label">Стоимость</div>
+        <h2 class="section-title">Прозрачные цены</h2>
+        <p class="section-desc">Финальная стоимость зависит от сложности задачи. Всегда называю цену до начала работы.</p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card reveal">
+                <div class="pricing-icon">🤖</div>
+                <div class="pricing-title">Telegram-боты</div>
+                <div class="pricing-price">3 000 ₽ <span>/ от</span></div>
+                <p class="pricing-desc">Автоматизация бизнеса, приём заказов, запись клиентов, поддержка 24/7</p>
+            </div>
+            <div class="pricing-card featured reveal">
+                <div class="pricing-badge">Популярно</div>
+                <div class="pricing-icon">🧠</div>
+                <div class="pricing-title">AI Интеграция</div>
+                <div class="pricing-price">5 000 ₽ <span>/ от</span></div>
+                <p class="pricing-desc">ChatGPT, Claude, GigaChat в готовый проект. RAG-системы, генерация контента</p>
+            </div>
+            <div class="pricing-card reveal">
+                <div class="pricing-icon">⚙️</div>
+                <div class="pricing-title">Скрипты / парсеры</div>
+                <div class="pricing-price">3 000 ₽ <span>/ от</span></div>
+                <p class="pricing-desc">Парсинг, обработка данных, автоматизация рутины и интеграция сервисов</p>
+            </div>
+            <div class="pricing-card reveal">
+                <div class="pricing-icon">🌐</div>
+                <div class="pricing-title">Веб-сервисы</div>
+                <div class="pricing-price">10 000 ₽ <span>/ от</span></div>
+                <p class="pricing-desc">REST API, веб-приложения, микросервисы с современным стеком</p>
+            </div>
+            <div class="pricing-card reveal">
+                <div class="pricing-icon">💼</div>
+                <div class="pricing-title">Сайты-визитки</div>
+                <div class="pricing-price">10 000 ₽ <span>/ от</span></div>
+                <p class="pricing-desc">Landing page с анимациями, SEO, мобильная адаптация. Этот сайт — мой пример</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<section id="faq">
+    <div class="container">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Частые вопросы</h2>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Как долго разрабатывается бот или сайт?
+                    <div class="faq-icon">+</div>
+                </button>
+                <div class="faq-answer">Простой бот — 2-3 дня. Сложный с базой данных и AI — около недели. Сайт или веб-сервис — от 3 до 5 дней в зависимости от сложности.</div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Нужно ли оплачивать хостинг?
+                    <div class="faq-icon">+</div>
+                </button>
+                <div class="faq-answer">Да, зависит от мощности сервера — обычно 500–1000 ₽/месяц. Помогу с выбором и настройкой.</div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Что если после сдачи что-то сломается?
+                    <div class="faq-icon">+</div>
+                </button>
+                <div class="faq-answer">Первый месяц поддержка бесплатно. Дальше можем договориться на абонентское обслуживание.</div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Работаете по договору?
+                    <div class="faq-icon">+</div>
+                </button>
+                <div class="faq-answer">Да, работаю как самозанятый. Выдаю чеки через «Мой налог». Могу заключить простой договор для вашей бухгалтерии.</div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Берётесь за задачи не из списка?
+                    <div class="faq-icon">+</div>
+                </button>
+                <div class="faq-answer">Если задача не моя — честно скажу об этом и порекомендую специалиста. Напишите в Telegram, обсудим.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<section id="contact">
+    <div class="container">
+        <div class="section-label">Контакты</div>
+        <h2 class="section-title">Давайте обсудим проект</h2>
+        <p class="section-desc">Первая консультация бесплатно. Отвечаю в течение часа.</p>
+
+        <div class="contact-grid">
+            <div>
+                <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 8px;">Не знаете с чего начать? Просто напишите — расскажите задачу в свободной форме, я задам уточняющие вопросы и предложу решение. Без обязательств.</p>
+                <div class="contact-links">
+                    <a href="https://t.me/skifmail" target="_blank" rel="noopener" class="contact-link">
+                        <div class="contact-link-icon">✈️</div>
+                        <div class="contact-link-text">
+                            <strong>Telegram</strong>
+                            <span>@skifmail — самый быстрый способ</span>
                         </div>
-                        <a href="https://www.tennisfan.ru" target="_blank" class="project-link">tennisfan.ru →</a>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-project="floral-bot">
-                    <div class="portfolio-hint">👆 Нажми для деталей</div>
-                    <div class="portfolio-image">
-                        <img src="/static/images/bot_1.png" alt="FloralDetailsBot — Telegram-бот для флористического сервиса" loading="lazy">
-                    </div>
-                    <div class="portfolio-content">
-                        <h3>FloralDetailsBot — Telegram-бот для оформления заказов цветов</h3>
-                        <p>Бот помогает клиентам выбирать композиции, оформлять заказы и получать уведомления о статусе. Удобный сценарий диалога и интеграция с CRM.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">aiogram 3.x</span>
-                            <span class="tag">Telegram Bot API</span>
-                            <span class="tag">PostgreSQL</span>
-                        </div>
-                        <a href="https://t.me/FloralDetailsBot" target="_blank" class="project-link">@FloralDetailsBot →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Что говорят клиенты?</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Александр сделал бота для записи к психологу за неделю. Теперь клиенты записываются сами, я перестала тратить 2 часа в день на звонки. Бот даже напоминания отправляет!</p>
-                    <div class="testimonial-author">
-                        <strong>Анна</strong>
-                        <span>психолог</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Нужен был скрипт для выгрузки товаров на сайт. Думал, будет сложно объяснять. Александр сам всё понял с первого раза, сделал за 3 дня. Работает без сбоев уже полгода</p>
-                    <div class="testimonial-author">
-                        <strong>Дмитрий</strong>
-                        <span>владелец интернет-магазина</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Сделал интеграцию с ChatGPT в наш CRM. Теперь менеджеры в 3 раза быстрее обрабатывают заявки. Окупилось за месяц</p>
-                    <div class="testimonial-author">
-                        <strong>Сергей</strong>
-                        <span>руководитель отдела продаж</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <h2 class="section-title">Стоимость услуг</h2>
-            <p class="pricing-subtitle">Прозрачные цены без скрытых платежей. Окончательная стоимость зависит от сложности проекта</p>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-icon">🤖</div>
-                    <h3>Telegram-боты</h3>
-                    <div class="price">от 3 000 ₽</div>
-                    <p>Автоматизация бизнеса, приём заказов, поддержка клиентов</p>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-icon">🌐</div>
-                    <h3>Веб-сервисы</h3>
-                    <div class="price">от 10 000 ₽</div>
-                    <p>REST API, веб-приложения, микросервисы</p>
-                </div>
-
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">Популярно</div>
-                    <div class="pricing-icon">🧠</div>
-                    <h3>Интеграция AI</h3>
-                    <div class="price">от 5 000 ₽</div>
-                    <p>Внедрение ChatGPT, Claude и других AI в готовый проект</p>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-icon">⚙️</div>
-                    <h3>Простые скрипты</h3>
-                    <div class="price">от 3 000 ₽</div>
-                    <p>Парсинг, обработка данных, автоматизация задач</p>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-icon">💼</div>
-                    <h3>Сайты-одностраничники</h3>
-                    <div class="price">от 10 000 ₽</div>
-                    <p>Современные landing page с анимациями и интеграциями</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <div class="container">
-            <h2 class="section-title">Частые вопросы</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span class="faq-icon">❓</span>
-                        <h3>Как долго делается бот? Сайт? Веб-сервис?</h3>
-                    </div>
-                    <p class="faq-answer">Простой бот — 2-3 дня. Сложный с базой данных, ИИ - около недели. Сайт или веб-сервис — от 3 до 5 дней в зависимости от сложности.</p>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span class="faq-icon">❓</span>
-                        <h3>Нужно ли оплачивать хостинг?</h3>
-                    </div>
-                    <p class="faq-answer">Да, зависит от мощности сервера — 500-1000₽/месяц.</p>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span class="faq-icon">❓</span>
-                        <h3>А если что-то сломается?</h3>
-                    </div>
-                    <p class="faq-answer">Первый месяц поддержка бесплатно. Дальше можем договориться на абонентское обслуживание.</p>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span class="faq-icon">❓</span>
-                        <h3>Можно сначала посмотреть примеры работ?</h3>
-                    </div>
-                    <p class="faq-answer">Конечно! Все мои проекты с кодом на GitHub (см. раздел Портфолио)</p>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span class="faq-icon">❓</span>
-                        <h3>Работаете по договору?</h3>
-                    </div>
-                    <p class="faq-answer">Да, работаю как самозанятый. Выдаю чеки через приложение "Мой налог". Могу заключить простой договор для вашей бухгалтерии.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Давайте обсудим ваш проект!</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <p class="contact-description">
-                        Не знаете, с чего начать? Напишите мне в Telegram — обсудим вашу задачу, я задам уточняющие вопросы и предложу решение. <strong>Первая консультация бесплатно.</strong>
-                    </p>
-                    <p class="contact-response-time">Отвечаю обычно в течение часа 🚀</p>
-                    <div class="contact-methods">
-                        <a href="https://t.me/skifmail" class="contact-link" target="_blank">
-                            <span class="contact-icon">📱</span>
-                            <span>Telegram: @skifmail</span>
-                        </a>
-                        <a href="mailto:aleksandr.shataylo@mail.ru" class="contact-link">
-                            <span class="contact-icon">✉️</span>
+                    </a>
+                    <a href="mailto:aleksandr.shataylo@mail.ru" class="contact-link">
+                        <div class="contact-link-icon">✉️</div>
+                        <div class="contact-link-text">
+                            <strong>Email</strong>
                             <span>aleksandr.shataylo@mail.ru</span>
-                        </a>
-                        <a href="https://github.com/Skifmail" class="contact-link" target="_blank">
-                            <span class="contact-icon">💻</span>
-                            <span>GitHub: Skifmail</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contactForm">
-                        <input type="text" name="name" placeholder="Ваше имя" required>
-                        <input type="text" name="contact" placeholder="Telegram или телефон для связи" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <textarea name="message" placeholder="Расскажите о вашем проекте" rows="5" required></textarea>
-                        
-                        <label class="consent-checkbox">
-                            <input type="checkbox" name="consent" required>
-                            <span>Отправляя форму я даю согласие самозанятому Шатайло А.В. на обработку моих персональных данных, включая трансграничную передачу, в целях, указанных в <a href="/privacy" target="_blank" rel="noopener">Политике в отношении обработки персональных данных</a>, и подтверждаю ознакомление с ней. Согласие может быть отозвано в любой момент путём направления уведомления Оператору.</span>
-                        </label>
-                        
-                        <button type="submit" class="btn btn-primary">Отправить</button>
-                    </form>
+                        </div>
+                    </a>
+                    <a href="https://github.com/Skifmail" target="_blank" rel="noopener" class="contact-link">
+                        <div class="contact-link-icon">💻</div>
+                        <div class="contact-link-text">
+                            <strong>GitHub</strong>
+                            <span>Skifmail — открытые проекты</span>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Privacy Consent Banner -->
-    <div id="privacyNotice" class="privacy-banner">
-        <div class="privacy-content">
-            <p>Мы используем cookies для улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с <a href="/privacy" target="_blank">Политикой в отношении обработки персональных данных</a>.</p>
-            <button class="btn btn-primary" onclick="acceptPrivacy()">Понятно</button>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">Ваше имя</label>
+                    <input id="contact-name" type="text" name="name" placeholder="Как к вам обращаться?" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-contact">Telegram или телефон</label>
+                    <input id="contact-contact" type="text" name="contact" placeholder="@username или +7..." required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" type="email" name="email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Задача</label>
+                    <textarea id="contact-message" name="message" placeholder="Опишите, что нужно сделать..." required></textarea>
+                </div>
+                <p style="font-size:0.75rem; color: var(--muted); line-height: 1.5;">Нажимая «Отправить», вы даёте согласие на обработку персональных данных согласно <a href="/privacy" style="color:var(--accent)">Политике конфиденциальности</a>.</p>
+                <button type="submit" class="form-submit">Отправить →</button>
+            </form>
         </div>
     </div>
+</section>
 
-    <!-- Modal for Project Details -->
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-body" id="modalBody">
-                <!-- Content will be inserted here -->
+<footer>
+    <div class="container">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+            <p>© 2025 Александр Шатайло · Python Developer · Сочи · ИНН 616521378194</p>
+            <div style="display:flex; gap:20px;">
+                <a href="/privacy">Политика конфиденциальности</a>
+                <a href="/offer">Публичная оферта</a>
             </div>
         </div>
     </div>
+</footer>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Александр Шатайло. Python Developer | Сочи</p>
-            <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-secondary);">
-                Самозанятый, ИНН 616521378194
-            </p>
-            <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-                <a href="/privacy" style="color: var(--text-secondary); text-decoration: underline;">Политика в отношении обработки персональных данных</a> |
-                <a href="/offer" style="color: var(--text-secondary); text-decoration: underline;">Публичная оферта</a>
-            </p>
-        </div>
-    </footer>
+<div class="modal" id="projectModal">
+    <div class="modal-content">
+        <button type="button" class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
+        <div id="modalBody"></div>
+    </div>
+</div>
 
-    <script src="/static/js/animations.js"></script>
-    <script src="/static/js/script.js"></script>
+<div class="privacy-notice" id="privacyNotice">
+    <p>Сайт использует cookies. Продолжая пользоваться сайтом, вы соглашаетесь с <a href="/privacy">Политикой конфиденциальности</a>.</p>
+    <button type="button" class="privacy-btn" onclick="acceptPrivacy()">Понятно</button>
+</div>
+
+<script src="/static/js/script.js"></script>
 </body>
 </html>
