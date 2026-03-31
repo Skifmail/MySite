@@ -6,6 +6,8 @@ from pathlib import Path
 import asyncio
 import httpx
 import os
+import smtplib
+from email.message import EmailMessage
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -21,7 +23,13 @@ TELEGRAM_REQUEST_TIMEOUT = float(os.getenv("TELEGRAM_REQUEST_TIMEOUT", "15"))
 MAX_BOT_TOKEN = os.getenv("MAX_BOT_TOKEN")
 MAX_CHAT_ID = os.getenv("MAX_CHAT_ID")
 MAX_API_BASE_URL = os.getenv("MAX_API_BASE_URL", "https://platform-api.max.ru")
-SEND_TO_ALL_MESSENGERS = os.getenv("SEND_TO_ALL_MESSENGERS", "false").lower() == "true"
+EMAIL_SMTP_HOST = os.getenv("EMAIL_SMTP_HOST", "smtp.mail.ru")
+EMAIL_SMTP_PORT = int(os.getenv("EMAIL_SMTP_PORT", "465"))
+EMAIL_SMTP_USE_SSL = os.getenv("EMAIL_SMTP_USE_SSL", "true").lower() == "true"
+EMAIL_SMTP_USERNAME = os.getenv("EMAIL_SMTP_USERNAME")
+EMAIL_SMTP_PASSWORD = os.getenv("EMAIL_SMTP_PASSWORD") or os.getenv("EMAIL_PASSWORD")
+EMAIL_FROM = os.getenv("EMAIL_FROM") or EMAIL_SMTP_USERNAME
+EMAIL_TO = os.getenv("EMAIL_TO")
 
 
 class ContactForm(BaseModel):
@@ -79,33 +87,74 @@ async def send_max_message(text: str) -> None:
             raise Exception(f"MAX API error: {error_detail}")
 
 
+def _send_email_message_sync(subject: str, text: str) -> None:
+    """Send email using SMTP in a blocking worker thread."""
+    if not EMAIL_SMTP_USERNAME or not EMAIL_SMTP_PASSWORD or not EMAIL_FROM or not EMAIL_TO:
+        raise ValueError("Email SMTP settings are incomplete")
+
+    message = EmailMessage()
+    message["Subject"] = subject
+    message["From"] = EMAIL_FROM
+    message["To"] = EMAIL_TO
+    message.set_content(text)
+
+    smtp_cls = smtplib.SMTP_SSL if EMAIL_SMTP_USE_SSL else smtplib.SMTP
+    with smtp_cls(EMAIL_SMTP_HOST, EMAIL_SMTP_PORT, timeout=15) as server:
+        if not EMAIL_SMTP_USE_SSL:
+            server.starttls()
+        server.login(EMAIL_SMTP_USERNAME, EMAIL_SMTP_PASSWORD)
+        server.send_message(message)
+
+
+async def send_email_message(subject: str, text: str) -> None:
+    """Send message copy to email inbox."""
+    await asyncio.to_thread(_send_email_message_sync, subject, text)
+
+
+def build_plaintext_message(html_text: str) -> str:
+    """Convert HTML-formatted notification text into plain text for email."""
+    replacements = {
+        "<b>": "",
+        "</b>": "",
+        "<pre>": "",
+        "</pre>": "",
+        "<br>": "\n",
+        "<br/>": "\n",
+        "<br />": "\n",
+    }
+    plain_text = html_text
+    for old, new in replacements.items():
+        plain_text = plain_text.replace(old, new)
+    return plain_text
+
+
 async def send_notification_message(text: str) -> None:
-    """Send notification to configured messenger provider."""
-    if SEND_TO_ALL_MESSENGERS:
-        tasks: list[tuple[str, asyncio.Task[None]]] = []
-        if MAX_BOT_TOKEN and MAX_CHAT_ID:
-            tasks.append(("max", asyncio.create_task(send_max_message(text))))
-        if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-            tasks.append(("telegram", asyncio.create_task(send_telegram_message(text))))
-
-        if not tasks:
-            raise ValueError("No messengers configured for notification delivery")
-
-        results = await asyncio.gather(*(task for _, task in tasks), return_exceptions=True)
-        errors: list[str] = []
-        for idx, result in enumerate(results):
-            if isinstance(result, Exception):
-                provider_name = tasks[idx][0]
-                errors.append(f"{provider_name}: {result}")
-
-        if len(errors) == len(tasks):
-            raise RuntimeError(f"All messenger providers failed: {'; '.join(errors)}")
-        return
+    """Send notification to all configured delivery channels in parallel."""
+    tasks: list[tuple[str, asyncio.Task[None]]] = []
+    plain_text = build_plaintext_message(text)
 
     if MAX_BOT_TOKEN and MAX_CHAT_ID:
-        await send_max_message(text)
-        return
-    await send_telegram_message(text)
+        tasks.append(("max", asyncio.create_task(send_max_message(text))))
+    if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+        tasks.append(("telegram", asyncio.create_task(send_telegram_message(text))))
+    if EMAIL_TO and EMAIL_FROM and EMAIL_SMTP_USERNAME and EMAIL_SMTP_PASSWORD:
+        tasks.append((
+            "email",
+            asyncio.create_task(send_email_message("Новая заявка с сайта-портфолио", plain_text)),
+        ))
+
+    if not tasks:
+        raise ValueError("No notification channels configured for delivery")
+
+    results = await asyncio.gather(*(task for _, task in tasks), return_exceptions=True)
+    errors: list[str] = []
+    for idx, result in enumerate(results):
+        if isinstance(result, Exception):
+            provider_name = tasks[idx][0]
+            errors.append(f"{provider_name}: {result}")
+
+    if len(errors) == len(tasks):
+        raise RuntimeError(f"All notification channels failed: {'; '.join(errors)}")
 
 
 def format_webhook_message(source: str, data: dict) -> str:
@@ -171,7 +220,7 @@ async def offer() -> str:
 
 @app.post("/api/contact")
 async def contact(form: ContactForm) -> dict[str, str]:
-    """Handle contact form submission and send to Telegram."""
+    """Handle contact form submission and send to all configured channels."""
     message_text = (
         f"📬 <b>Новое сообщение с сайта-портфолио</b>\n\n"
         f"👤 <b>Имя:</b> {form.name}\n"

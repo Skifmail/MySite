@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eDEX-UI Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:    #050d12;
+  --panel: #081520;
+  --brd:   #0f4d6e;
+  --ac:    #00d4ff;
+  --ac2:   #00ff9d;
+  --tx:    #8ecfdf;
+  --dim:   #2a5a6e;
+  --warn:  #ff6b35;
+  --mono:  'Share Tech Mono', monospace;
+  --disp:  'Orbitron', monospace;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.root {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--mono);
+  font-size: 12px;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 180px 1fr 180px;
+  grid-template-rows: 40px 1fr 64px;
+  gap: 6px;
+  padding: 8px;
+}
+
+/* ── Header ── */
+.hdr {
+  grid-column: 1 / -1;
+  border: 1px solid var(--brd);
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+.logo { font-family: var(--disp); font-size: 14px; color: var(--ac); letter-spacing: 3px; }
+.clk  { font-family: var(--disp); font-size: 13px; color: var(--ac2); letter-spacing: 2px; }
+.dots { display: flex; gap: 6px; }
+.dot  { width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s infinite; }
+.dg   { background: var(--ac2); animation-delay: 0s; }
+.db   { background: var(--ac);  animation-delay: .6s; }
+.dr   { background: var(--warn); animation-delay: 1.2s; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+/* ── Panels ── */
+.pnl {
+  border: 1px solid var(--brd);
+  background: var(--panel);
+  padding: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.ptitle {
+  font-family: var(--disp);
+  font-size: 8px;
+  color: var(--ac);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.scan {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Left panel ── */
+.left  { grid-column: 1; grid-row: 2; }
+.right { grid-column: 3; grid-row: 2; }
+
+.srow  { display: flex; justify-content: space-between; margin-bottom: 6px; align-items: center; }
+.slbl  { color: var(--dim); font-size: 10px; }
+.sval  { color: var(--ac2); font-size: 10px; }
+
+.bbg   { height: 4px; background: #0a2030; border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
+.bfill { height: 100%; border-radius: 2px; background: var(--ac); transition: width .8s ease; }
+
+.cgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 4px; }
+.ccore { height: 24px; background: #0a2030; border: 1px solid var(--dim); display: flex; align-items: flex-end; overflow: hidden; }
+.ccfill { width: 100%; background: var(--ac); opacity: .7; transition: height .6s ease; }
+
+/* ── Network chart ── */
+.netline { height: 40px; border: 1px solid var(--brd); margin-bottom: 6px; overflow: hidden; }
+canvas   { width: 100%; height: 100%; display: block; }
+
+/* ── Process list ── */
+.prow  { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid #0a2030; }
+.pname { color: var(--tx); }
+.ppid  { color: var(--dim); }
+.pcpu  { color: var(--ac2); }
+
+/* ── Terminal (center) ── */
+.center {
+  grid-column: 2; grid-row: 2;
+  border: 1px solid var(--brd);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.term-out {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dim) transparent;
+}
+.term-out::-webkit-scrollbar       { width: 4px; }
+.term-out::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+
+.tline { display: flex; gap: 8px; margin-bottom: 2px; word-break: break-all; }
+.tp    { color: var(--ac);  flex-shrink: 0; }
+.tc    { color: #fff; }
+.to    { color: var(--tx); }
+.te    { color: var(--warn); }
+.ts2   { color: var(--ac2); }
+.tsys  { color: var(--dim); font-style: italic; }
+
+.tinrow {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-top: 1px solid var(--brd);
+  gap: 8px;
+  flex-shrink: 0;
+}
+.tprompt { color: var(--ac); flex-shrink: 0; user-select: none; }
+#tin {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 12px;
+  caret-color: var(--ac2);
+}
+
+/* ── Footer log ── */
+.ftr {
+  grid-column: 1 / -1; grid-row: 3;
+  border: 1px solid var(--brd);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.log-out {
+  flex: 1;
+  overflow-y: auto;
+  padding: 5px 14px;
+  font-size: 10px;
+  line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dim) transparent;
+}
+</style>
+</head>
+<body>
+
+<div class="root" id="root">
+
+  <!-- Header -->
+  <div class="hdr">
+    <span class="logo">eDEX-UI</span>
+    <div class="dots">
+      <div class="dot dg"></div>
+      <div class="dot db"></div>
+      <div class="dot dr"></div>
+    </div>
+    <span class="clk" id="clk">00:00:00</span>
+  </div>
+
+  <!-- Left: system stats -->
+  <div class="pnl left">
+    <div class="scan"></div>
+    <div class="ptitle">System</div>
+
+    <div class="srow"><span class="slbl">CPU</span><span class="sval" id="cpu-p">34%</span></div>
+    <div class="bbg"><div class="bfill" id="cpu-b" style="width:34%"></div></div>
+
+    <div class="srow"><span class="slbl">RAM</span><span class="sval" id="ram-p">61%</span></div>
+    <div class="bbg"><div class="bfill" id="ram-b" style="width:61%"></div></div>
+
+    <div class="srow"><span class="slbl">DISK</span><span class="sval">47%</span></div>
+    <div class="bbg"><div class="bfill" style="width:47%"></div></div>
+
+    <div class="srow" style="margin-top:8px"><span class="slbl">TEMP</span><span class="sval" id="temp">58°C</span></div>
+    <div class="srow"><span class="slbl">UPTIME</span><span class="sval" id="upt">00:00:00</span></div>
+    <div class="srow"><span class="slbl">KERNEL</span><span class="sval">6.1.0</span></div>
+    <div class="srow"><span class="slbl">ARCH</span><span class="sval">x86_64</span></div>
+
+    <div class="ptitle" style="margin-top:12px">CPU Cores</div>
+    <div class="cgrid" id="cgrid"></div>
+  </div>
+
+  <!-- Center: terminal -->
+  <div class="center">
+    <div class="scan"></div>
+    <div class="term-out" id="tout"></div>
+    <div class="tinrow">
+      <span class="tprompt">root@edex:~$</span>
+      <input id="tin" type="text" autocomplete="off" spellcheck="false" placeholder="type a command...">
+    </div>
+  </div>
+
+  <!-- Right: network + processes -->
+  <div class="pnl right">
+    <div class="scan"></div>
+    <div class="ptitle">Network</div>
+
+    <div class="srow"><span class="slbl">TX</span><span class="sval" id="tx">0 KB/s</span></div>
+    <div class="srow"><span class="slbl">RX</span><span class="sval" id="rx">0 KB/s</span></div>
+    <div class="netline"><canvas id="nc"></canvas></div>
+    <div class="srow"><span class="slbl">IP</span><span class="sval">192.168.1.x</span></div>
+    <div class="srow"><span class="slbl">PING</span><span class="sval" id="ping">12ms</span></div>
+    <div class="srow"><span class="slbl">PKT/s</span><span class="sval" id="pkt">340</span></div>
+
+    <div class="ptitle" style="margin-top:12px">Processes</div>
+    <div id="plist"></div>
+  </div>
+
+  <!-- Footer: system log -->
+  <div class="ftr">
+    <div class="log-out" id="log"></div>
+  </div>
+
+</div>
+
+<script>
+const tout = document.getElementById('tout');
+const tin  = document.getElementById('tin');
+const logEl = document.getElementById('log');
+let hist = [], hi = -1, startT = Date.now();
+
+/* ── Commands ── */
+const cmds = {
+  help: () => [
+    { c: 'ts2', t: 'Available commands:' },
+    { c: 'to',  t: '  help       — show this message' },
+    { c: 'to',  t: '  ls         — list files' },
+    { c: 'to',  t: '  whoami     — current user' },
+    { c: 'to',  t: '  uname      — system info' },
+    { c: 'to',  t: '  ps         — process list' },
+    { c: 'to',  t: '  ping       — network ping' },
+    { c: 'to',  t: '  date       — current date/time' },
+    { c: 'to',  t: '  clear      — clear terminal' },
+    { c: 'to',  t: '  echo <msg> — print message' },
+  ],
+  ls: () => [
+    { c: 'ts2', t: 'drwxr-xr-x  documents/' },
+    { c: 'ts2', t: 'drwxr-xr-x  projects/' },
+    { c: 'to',  t: '-rw-r--r--  README.md' },
+    { c: 'to',  t: '-rwxr-xr-x  start.sh' },
+    { c: 'to',  t: '-rw-------  .config' },
+  ],
+  whoami: () => [{ c: 'ts2', t: 'root' }],
+  uname:  () => [{ c: 'to',  t: 'Linux edex-ui 6.1.0 #1 SMP x86_64 GNU/Linux' }],
+  date:   () => [{ c: 'to',  t: new Date().toString() }],
+  ps:     () => [
+    { c: 'to', t: 'PID   CMD              CPU%  MEM%' },
+    { c: 'to', t: '1     systemd           0.0   0.1' },
+    { c: 'to', t: '312   NetworkManager    0.3   0.5' },
+    { c: 'to', t: '891   node              4.2   2.1' },
+    { c: 'to', t: '1042  nginx             0.8   1.3' },
+    { c: 'to', t: '2201  bash              0.0   0.2' },
+  ],
+  ping: () => [
+    { c: 'to',  t: 'PING 8.8.8.8 (8.8.8.8)' },
+    { c: 'ts2', t: '64 bytes: icmp_seq=1 time=11.4ms' },
+    { c: 'ts2', t: '64 bytes: icmp_seq=2 time=12.1ms' },
+    { c: 'ts2', t: '64 bytes: icmp_seq=3 time=10.9ms' },
+  ],
+  clear: () => { tout.innerHTML = ''; return []; },
+};
+
+/* ── Helpers ── */
+function addLine(parent, cls, text) {
+  const d = document.createElement('div');
+  d.className = 'tline';
+  const s = document.createElement('span');
+  s.className = cls;
+  s.textContent = text;
+  d.appendChild(s);
+  parent.appendChild(d);
+  parent.scrollTop = parent.scrollHeight;
+}
+
+function run(raw) {
+  const parts = raw.trim().split(' ');
+  const cmd   = parts[0].toLowerCase();
+  const args  = parts.slice(1).join(' ');
+
+  const pd = document.createElement('div');
+  pd.className = 'tline';
+  pd.innerHTML  = `<span class="tp">root@edex:~$</span><span class="tc"> ${raw}</span>`;
+  tout.appendChild(pd);
+
+  if (cmd === 'echo')       { addLine(tout, 'to', args); }
+  else if (cmds[cmd])       { cmds[cmd]().forEach(l => addLine(tout, l.c, l.t)); }
+  else if (cmd !== '')      { addLine(tout, 'te', `bash: ${cmd}: command not found`); }
+
+  tout.scrollTop = tout.scrollHeight;
+}
+
+/* ── Input handling ── */
+tin.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const v = tin.value;
+    if (v.trim()) { hist.unshift(v); hi = -1; }
+    run(v);
+    tin.value = '';
+  } else if (e.key === 'ArrowUp') {
+    if (hi < hist.length - 1) { hi++; tin.value = hist[hi]; }
+    e.preventDefault();
+  } else if (e.key === 'ArrowDown') {
+    if (hi > 0) { hi--; tin.value = hist[hi]; } else { hi = -1; tin.value = ''; }
+    e.preventDefault();
+  }
+});
+
+document.getElementById('root').addEventListener('click', () => tin.focus());
+
+/* ── Boot sequence ── */
+[
+  { c: 'tsys', t: 'Initializing eDEX-UI v2.2.8...' },
+  { c: 'to',   t: 'Loading kernel modules... OK' },
+  { c: 'to',   t: 'Mounting filesystems... OK' },
+  { c: 'ts2',  t: 'System ready. Type "help" for commands.' },
+  { c: 'tsys', t: '' },
+].forEach((l, i) => setTimeout(() => addLine(tout, l.c, l.t), i * 180));
+
+/* ── Clock + uptime ── */
+function tick() {
+  const now = new Date();
+  document.getElementById('clk').textContent = now.toTimeString().slice(0, 8);
+  const up = Math.floor((Date.now() - startT) / 1000);
+  const h  = String(Math.floor(up / 3600)).padStart(2, '0');
+  const m  = String(Math.floor((up % 3600) / 60)).padStart(2, '0');
+  const s  = String(up % 60).padStart(2, '0');
+  document.getElementById('upt').textContent = `${h}:${m}:${s}`;
+}
+setInterval(tick, 1000);
+tick();
+
+/* ── CPU cores ── */
+const cg    = document.getElementById('cgrid');
+const cores = [];
+for (let i = 0; i < 8; i++) {
+  const c = document.createElement('div'); c.className = 'ccore';
+  const f = document.createElement('div'); f.className = 'ccfill'; f.style.height = '40%';
+  c.appendChild(f); cg.appendChild(c); cores.push(f);
+}
+
+/* ── Network canvas ── */
+const nc  = document.getElementById('nc');
+const ctx = nc.getContext('2d');
+const nd  = Array(50).fill(0);
+
+/* ── Animate stats every second ── */
+function animStats() {
+  const cpu  = 20 + Math.random() * 50;
+  const ram  = 55 + Math.random() * 15;
+  const temp = 50 + Math.random() * 20;
+
+  document.getElementById('cpu-p').textContent = Math.round(cpu) + '%';
+  document.getElementById('ram-p').textContent = Math.round(ram) + '%';
+  document.getElementById('cpu-b').style.width = cpu + '%';
+  document.getElementById('ram-b').style.width = ram + '%';
+  document.getElementById('temp').textContent  = Math.round(temp) + '°C';
+
+  cores.forEach(c => { c.style.height = (10 + Math.random() * 85) + '%'; });
+
+  const txv = Math.round(Math.random() * 500);
+  const rxv = Math.round(Math.random() * 1200);
+  document.getElementById('tx').textContent   = txv + ' KB/s';
+  document.getElementById('rx').textContent   = rxv + ' KB/s';
+  document.getElementById('ping').textContent = (8 + Math.round(Math.random() * 30)) + 'ms';
+  document.getElementById('pkt').textContent  = (200 + Math.round(Math.random() * 400));
+
+  /* network chart */
+  nd.shift(); nd.push(rxv);
+  const w  = nc.offsetWidth  || 160;
+  const h  = nc.offsetHeight || 40;
+  nc.width = w; nc.height = h;
+  const mx = Math.max(...nd, 1);
+  ctx.clearRect(0, 0, w, h);
+  ctx.beginPath(); ctx.moveTo(0, h);
+  nd.forEach((v, i) => ctx.lineTo((i / (nd.length - 1)) * w, h - (v / mx) * h * .9));
+  ctx.lineTo(w, h); ctx.closePath();
+  ctx.fillStyle = 'rgba(0,212,255,.12)'; ctx.fill();
+  ctx.beginPath();
+  nd.forEach((v, i) => {
+    const x = (i / (nd.length - 1)) * w;
+    const y = h - (v / mx) * h * .9;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = 'rgba(0,212,255,.8)'; ctx.lineWidth = 1.5; ctx.stroke();
+
+  /* processes */
+  const procs = [
+    { n: 'nginx',    p: '1042', c: (Math.random() * 2).toFixed(1) },
+    { n: 'node',     p: '891',  c: (Math.random() * 8).toFixed(1) },
+    { n: 'postgres', p: '723',  c: (Math.random() * 3).toFixed(1) },
+    { n: 'bash',     p: '2201', c: '0.0' },
+  ];
+  const pl = document.getElementById('plist'); pl.innerHTML = '';
+  procs.forEach(p => {
+    const d = document.createElement('div'); d.className = 'prow';
+    d.innerHTML = `<span class="pname">${p.n}</span><span class="ppid">${p.p}</span><span class="pcpu">${p.c}%</span>`;
+    pl.appendChild(d);
+  });
+
+  /* system log */
+  const msgs = [
+    '[kernel] IRQ balance OK',      '[net] packet received 10.0.0.1',
+    '[disk] read 4KB /dev/sda1',    '[auth] session active: root',
+    '[sys] cron job executed',      '[mem] page cache flush complete',
+  ];
+  const t = new Date().toTimeString().slice(0, 8);
+  addLine(logEl, 'tsys', `[${t}] ${msgs[Math.floor(Math.random() * msgs.length)]}`);
+  while (logEl.children.length > 4) logEl.removeChild(logEl.firstChild);
+}
+
+setInterval(animStats, 1000);
+animStats();
+tin.focus();
+</script>
+</body>
+</html>

@@ -199,6 +199,16 @@
                 { image: '/static/images/wb_rank_bot_2.jpg', title: 'Отслеживание', description: 'Уведомления при изменении позиции.' },
                 { image: '/static/images/wb_rank_bot_3.jpg', title: 'Регионы', description: 'Позиции в 85 регионах России.' }
             ]
+        },
+        'ostorozhno-detali': {
+            title: 'Осторожно Детали — сайт студии декора мероприятий',
+            description: 'Сайт полностью сделан по дизайну заказчика: промо-подача студии декора и оформления событий, презентация услуг, кейсов, этапов работы и удобная точка входа для новых клиентов.',
+            screenshots: [
+                { image: '/static/images/ostorozhno_1.png', title: 'Главная страница', description: 'Первый экран с визуальной подачей студии и основным оффером для клиентов.' },
+                { image: '/static/images/ostorozhno_2.png', title: 'Форма заявки', description: 'Интерактивная форма заявки с отправкой данных в Телеграм и на email.' },
+                { image: '/static/images/ostorozhno_3.png', title: 'Кейсы и визуальный стиль', description: 'Демонстрация оформленных проектов и атмосферы бренда через контентные секции.' },
+                { image: '/static/images/ostorozhno_4.png', title: 'Instagram* виджет', description: 'Автоматически обновляемый виджет, подключенный к страничке заказчика.' }
+            ]
         }
     };
 
@@ -298,6 +308,118 @@
         } catch (e) {}
     }
 
+    function initHeroTerminal() {
+        var codeEl = document.getElementById('heroTerminalCode');
+        var resultEl = document.getElementById('heroTerminalResult');
+        var metaEl = document.getElementById('heroTerminalMeta');
+        var stepEls = document.querySelectorAll('#heroTerminalSteps .hero-terminal-step');
+        if (!codeEl || !resultEl || !metaEl || !stepEls.length) return;
+
+        var frames = [
+            {
+                lines: [
+                    '<span class="c-cm"># FastAPI + Telegram automation pipeline</span>',
+                    '<span class="c-kw">from</span> fastapi <span class="c-kw">import</span> <span class="c-var">FastAPI</span>',
+                    '<span class="c-kw">from</span> aiogram <span class="c-kw">import</span> <span class="c-var">Bot</span>',
+                    '',
+                    '<span class="c-var">app</span> = <span class="c-fn">FastAPI</span>()',
+                    '<span class="c-var">bot</span> = <span class="c-fn">Bot</span>(token=<span class="c-str">"***"</span>)',
+                    '',
+                    '<span class="c-kw">async def</span> <span class="c-fn">build_flow</span>():',
+                    '    <span class="c-kw">await</span> <span class="c-fn">sync_products</span>()',
+                    '    <span class="c-kw">await</span> <span class="c-fn">render_landing</span>()',
+                    '    <span class="c-kw">return</span> <span class="c-str">"ready"</span><span class="cursor"></span>'
+                ],
+                step: 0,
+                result: 'Собираю backend и UI-сценарий',
+                meta: 'FastAPI • templates • static assets'
+            },
+            {
+                lines: [
+                    '<span class="c-cm"># Attach webhook + validate payload</span>',
+                    '<span class="c-kw">async def</span> <span class="c-fn">bind_webhook</span>(payload):',
+                    '    lead = <span class="c-fn">normalize_payload</span>(payload)',
+                    '    <span class="c-kw">if</span> <span class="c-kw">not</span> lead.<span class="c-var">email</span>:',
+                    '        <span class="c-kw">raise</span> <span class="c-var">ValueError</span>(<span class="c-str">"missing email"</span>)',
+                    '    <span class="c-kw">await</span> <span class="c-fn">push_to_crm</span>(lead)',
+                    '    <span class="c-kw">await</span> <span class="c-fn">notify_manager</span>(lead)',
+                    '    <span class="c-kw">return</span> <span class="c-str">"delivered"</span><span class="cursor"></span>'
+                ],
+                step: 1,
+                result: 'Проверяю webhook и доставку данных',
+                meta: 'validation • lead routing • CRM sync'
+            },
+            {
+                lines: [
+                    '<span class="c-cm"># Deploy new version</span>',
+                    '<span class="c-var">$</span> git pull origin main',
+                    '<span class="c-var">$</span> systemctl restart mysite',
+                    '<span class="c-var">$</span> systemctl restart email_forwarder',
+                    '',
+                    '[ok] app restarted in <span class="c-num">0.8s</span>',
+                    '[ok] webhook healthcheck passed',
+                    '[ok] metrics stream online<span class="cursor"></span>'
+                ],
+                step: 2,
+                result: 'Выкатываю обновление без простоя',
+                meta: 'deploy • healthcheck • monitoring'
+            },
+            {
+                lines: [
+                    '<span class="c-cm"># Final action</span>',
+                    '<span class="c-kw">await</span> <span class="c-fn">bot.send_message</span>(',
+                    '    chat_id=<span class="c-str">"owner"</span>,',
+                    '    text=<span class="c-str">"Проект запущен: лиды приходят, сайт обновлён, webhook активен."</span>',
+                    ')',
+                    '',
+                    '<span class="c-var">status</span> = <span class="c-str">"LIVE"</span><span class="cursor"></span>'
+                ],
+                step: 3,
+                result: 'Проект в эфире. Уведомление отправлено.',
+                meta: 'launch complete • telegram notification'
+            }
+        ];
+
+        var frameIndex = 0;
+        var lineIndex = 0;
+
+        function setSteps(activeIndex) {
+            stepEls.forEach(function (stepEl, index) {
+                stepEl.classList.remove('is-active', 'is-done', 'is-pending');
+                if (index < activeIndex) {
+                    stepEl.classList.add('is-done');
+                } else if (index === activeIndex) {
+                    stepEl.classList.add('is-active');
+                } else {
+                    stepEl.classList.add('is-pending');
+                }
+            });
+        }
+
+        function renderFrame() {
+            var frame = frames[frameIndex];
+            setSteps(frame.step);
+            resultEl.textContent = frame.result;
+            metaEl.textContent = frame.meta;
+            codeEl.innerHTML = frame.lines.slice(0, lineIndex + 1).join('\n');
+            lineIndex += 1;
+
+            if (lineIndex < frame.lines.length) {
+                setTimeout(renderFrame, 120);
+                return;
+            }
+
+            setTimeout(function () {
+                frameIndex = (frameIndex + 1) % frames.length;
+                lineIndex = 0;
+                codeEl.innerHTML = '';
+                renderFrame();
+            }, 1500);
+        }
+
+        renderFrame();
+    }
+
     // ─── Init on DOM ready ────────────────────────────────────────
     function init() {
         initCanvas();
@@ -309,6 +431,7 @@
         initModal();
         initForm();
         initPrivacy();
+        initHeroTerminal();
     }
 
     if (document.readyState === 'loading') {

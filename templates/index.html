@@ -104,29 +104,84 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-card">
+            <div class="hero-right">
+                <a href="https://sweb.ru/?utm_term=diruwaag" target="_blank" rel="noopener" class="spaceweb-widget">
+                    <div class="spaceweb-topline">
+                        <div class="spaceweb-pill">Рекомендуем</div>
+                    </div>
+                    <div class="spaceweb-main">
+                        <div class="spaceweb-copy">
+                            <div class="spaceweb-brandline">
+                                <div class="spaceweb-logo">
+                                    <img src="/static/images/logo_spaceweb.png" alt="SpaceWeb" class="spaceweb-logo-img" loading="lazy" />
+                                </div>
+                            </div>
+                            <div class="spaceweb-kicker">Хостинг и инфраструктура для сайтов</div>
+                            <div class="spaceweb-title">Хостинг для сайта и блога — от 99 ₽/мес</div>
+                            <div class="spaceweb-subtitle">Домены, SSL, VPS и перенос сайта — всё в одной панели. Первые 14 дней бесплатно.</div>
+                            <div class="spaceweb-services">
+                                <span class="spaceweb-service">Виртуальный хостинг</span>
+                                <span class="spaceweb-service">VPS / VDS</span>
+                                <span class="spaceweb-service">Домены</span>
+                                <span class="spaceweb-service">SSL</span>
+                            </div>
+                        </div>
+                        <div class="spaceweb-side">
+                            <div class="spaceweb-side-title">Что есть у SpaceWeb</div>
+                            <div class="spaceweb-highlights">
+                                <span class="spaceweb-highlight">PHP 8.4 и MySQL 8</span>
+                                <span class="spaceweb-highlight">VPS/VDS — легко масштабировать</span>
+                                <span class="spaceweb-highlight">Домены и SSL в одной панели</span>
+                                <span class="spaceweb-highlight">Бесплатный перенос сайта</span>
+                            </div>
+                            <div class="spaceweb-cta">
+                                <span class="spaceweb-cta-action">
+                                    <span>Попробовать бесплатно</span>
+                                    <span class="spaceweb-arrow">→</span>
+                                </span>
+                                <small class="spaceweb-cta-note">14 дней теста на хостинг</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spaceweb-marking">
+                        <span class="spaceweb-ad-label">Реклама. ООО «СпейсВэб» (ИНН 7813376370)</span>
+                        <span class="spaceweb-token">erid: CQH36pWzJqVGZCKNsBoWyyZYTaoPYMnoEQqL38mjMq6ZJH</span>
+                    </div>
+                </a>
+            </div>
+            <div class="hero-card hero-terminal">
                 <div class="card-header">
                     <div class="dot dot-r"></div>
                     <div class="dot dot-y"></div>
                     <div class="dot dot-g"></div>
-                    <span class="card-title">flower_bot.py</span>
+                    <span class="card-title">live_session.py</span>
+                    <div class="hero-terminal-tabs">
+                        <span class="hero-terminal-tab active">build</span>
+                        <span class="hero-terminal-tab">deploy</span>
+                        <span class="hero-terminal-tab">notify</span>
+                    </div>
                 </div>
-                <div class="code-block">
-<span class="c-cm"># 🌸 Telegram бот для заказа цветов</span><br>
-<span class="c-kw">from</span> aiogram <span class="c-kw">import</span> <span class="c-var">Bot</span>, <span class="c-var">Dispatcher</span><br>
-<span class="c-kw">from</span> aiogram.fsm.storage.memory <span class="c-kw">import</span> MemoryStorage<br>
-<br>
-<span class="c-kw">async def</span> <span class="c-fn">handle_order</span>(message):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-cm"># Показываем каталог букетов</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-kw">await</span> message.<span class="c-fn">answer</span>(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Выберите букет 💐"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reply_markup=<span class="c-fn">catalog_kb</span>()<br>
-&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-<br>
-<span class="c-kw">async def</span> <span class="c-fn">confirm_payment</span>(call):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;order_id = <span class="c-fn">save_order</span>(call.<span class="c-var">data</span>)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-kw">await</span> <span class="c-fn">notify_florist</span>(order_id)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-kw">return</span> <span class="c-str">"✅ Заказ принят!"</span><span class="cursor"></span>
+                <div class="hero-terminal-body">
+                    <div class="hero-terminal-console">
+                        <div class="hero-terminal-label">Сборка и запуск проекта</div>
+                        <pre class="code-block hero-terminal-code" id="heroTerminalCode" aria-live="polite"></pre>
+                    </div>
+                    <div class="hero-terminal-status">
+                        <div class="hero-terminal-panel">
+                            <div class="hero-terminal-panel-title">Pipeline</div>
+                            <div class="hero-terminal-steps" id="heroTerminalSteps">
+                                <div class="hero-terminal-step is-pending">Сборка backend</div>
+                                <div class="hero-terminal-step is-pending">Проверка webhook</div>
+                                <div class="hero-terminal-step is-pending">Развёртывание</div>
+                                <div class="hero-terminal-step is-pending">Уведомление в Telegram</div>
+                            </div>
+                        </div>
+                        <div class="hero-terminal-panel hero-terminal-result">
+                            <div class="hero-terminal-panel-title">Action</div>
+                            <div class="hero-terminal-result-line" id="heroTerminalResult">Ожидание запуска...</div>
+                            <div class="hero-terminal-result-meta" id="heroTerminalMeta">FastAPI • Webhooks • Automations</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -347,6 +402,25 @@
                     </div>
                 </div>
             </div>
+
+            <div class="portfolio-item reveal" data-project="ostorozhno-detali">
+                <div class="portfolio-thumb">
+                    <img src="/static/images/ostorozhno_1.png" alt="Осторожно Детали" loading="lazy">
+                </div>
+                <div class="portfolio-body">
+                    <div class="portfolio-type">Промо-сайт</div>
+                    <h3>Осторожно Детали — сайт студии декора мероприятий</h3>
+                    <p>Сайт полностью сделан по дизайну заказчика: имиджевая презентация студии декора, этапов работы, реализованных проектов и формы заявки для клиентов.</p>
+                    <div class="portfolio-footer">
+                        <div class="portfolio-tags">
+                            <span class="tag">Промо-сайт</span>
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">Форма заявки</span>
+                        </div>
+                        <a href="https://www.ostorozhno-detali.ru" target="_blank" rel="noopener" class="portfolio-link" onclick="event.stopPropagation()">Открыть →</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -417,6 +491,12 @@
                 <div class="pricing-title">Сайты-визитки</div>
                 <div class="pricing-price">10 000 ₽ <span>/ от</span></div>
                 <p class="pricing-desc">Landing page с анимациями, SEO, мобильная адаптация. Этот сайт — мой пример</p>
+            </div>
+            <div class="pricing-card reveal">
+                <div class="pricing-icon">🎾</div>
+                <div class="pricing-title">Онлайн-платформы</div>
+                <div class="pricing-price">90 000 ₽ <span>/ от</span></div>
+                <p class="pricing-desc">Тематические веб-платформы с личными кабинетами, событиями, рейтингами, каталогами и внутренней логикой сообщества</p>
             </div>
         </div>
     </div>
@@ -531,12 +611,13 @@
 <footer>
     <div class="container">
         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
-            <p>© 2025 Александр Шатайло · Python Developer · Сочи · ИНН 616521378194</p>
+            <p>© 2026 Александр Шатайло · Python Developer · Сочи · ИНН 616521378194</p>
             <div style="display:flex; gap:20px;">
                 <a href="/privacy">Политика конфиденциальности</a>
                 <a href="/offer">Публичная оферта</a>
             </div>
         </div>
+        <p style="margin-top:10px;">* Instagram принадлежит компании Meta, деятельность которой признана экстремистской и запрещена на территории РФ.</p>
     </div>
 </footer>
 
