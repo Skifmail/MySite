@@ -103,6 +103,23 @@ certbot --nginx -d ваш-домен.ru -d www.ваш-домен.ru
 
 Следуйте инструкциям на экране. Certbot сам обновит конфиг Nginx.
 
+### Редирект www → без www (важно для SEO)
+
+Если и `https://aleks-shataylo.ru`, и `https://www.aleks-shataylo.ru` открываются без редиректа, поисковики видят **дубликат**. В `deploy/nginx.conf` для порта **80** уже отдельный `server` с `return 301` для `www`.
+
+После **certbot** проверьте файл сайта в `/etc/nginx/sites-enabled/`:
+
+- Должен быть отдельный блок `listen 443 ssl` с `server_name www.aleks-shataylo.ru` и строкой  
+  `return 301 https://aleks-shataylo.ru$request_uri;`
+- Если certbot оставил только один SSL-блок на оба имени — добавьте второй блок только для `www` с редиректом (как для порта 80).
+
+Проверка с компьютера:
+
+```bash
+curl -sI https://www.aleks-shataylo.ru/ | head -5
+# Ожидается: HTTP/2 301 и Location: https://aleks-shataylo.ru/
+```
+
 ---
 🎉 **Готово! Ваш сайт должен быть доступен по адресу вашего домена.**
 
