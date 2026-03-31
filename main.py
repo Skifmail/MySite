@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
 from pydantic import BaseModel, EmailStr
 from pathlib import Path
+import asyncio
 import httpx
 import os
 from dotenv import load_dotenv
@@ -15,6 +16,12 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = int(os.getenv("TELEGRAM_CHAT_ID", "0"))
+TELEGRAM_PROXY_URL = os.getenv("TELEGRAM_PROXY_URL")
+TELEGRAM_REQUEST_TIMEOUT = float(os.getenv("TELEGRAM_REQUEST_TIMEOUT", "15"))
+MAX_BOT_TOKEN = os.getenv("MAX_BOT_TOKEN")
+MAX_CHAT_ID = os.getenv("MAX_CHAT_ID")
+MAX_API_BASE_URL = os.getenv("MAX_API_BASE_URL", "https://platform-api.max.ru")
+SEND_TO_ALL_MESSENGERS = os.getenv("SEND_TO_ALL_MESSENGERS", "false").lower() == "true"
 
 
 class ContactForm(BaseModel):
@@ -39,11 +46,66 @@ async def send_telegram_message(text: str) -> None:
         "parse_mode": "HTML"
     }
     
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(
+        timeout=TELEGRAM_REQUEST_TIMEOUT,
+        proxies=TELEGRAM_PROXY_URL,
+    ) as client:
         response = await client.post(url, json=payload)
         if not response.is_success:
             error_detail = response.text
             raise Exception(f"Telegram API error: {error_detail}")
+
+
+async def send_max_message(text: str) -> None:
+    """Send message to MAX bot API."""
+    if not MAX_BOT_TOKEN or not MAX_CHAT_ID:
+        raise ValueError("MAX_BOT_TOKEN or MAX_CHAT_ID is not configured")
+
+    url = f"{MAX_API_BASE_URL.rstrip('/')}/messages"
+    payload = {
+        "chat_id": MAX_CHAT_ID,
+        "text": text,
+        "format": "html",
+    }
+    headers = {
+        "Authorization": MAX_BOT_TOKEN,
+        "Content-Type": "application/json",
+    }
+
+    async with httpx.AsyncClient(timeout=TELEGRAM_REQUEST_TIMEOUT) as client:
+        response = await client.post(url, json=payload, headers=headers)
+        if not response.is_success:
+            error_detail = response.text
+            raise Exception(f"MAX API error: {error_detail}")
+
+
+async def send_notification_message(text: str) -> None:
+    """Send notification to configured messenger provider."""
+    if SEND_TO_ALL_MESSENGERS:
+        tasks: list[tuple[str, asyncio.Task[None]]] = []
+        if MAX_BOT_TOKEN and MAX_CHAT_ID:
+            tasks.append(("max", asyncio.create_task(send_max_message(text))))
+        if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+            tasks.append(("telegram", asyncio.create_task(send_telegram_message(text))))
+
+        if not tasks:
+            raise ValueError("No messengers configured for notification delivery")
+
+        results = await asyncio.gather(*(task for _, task in tasks), return_exceptions=True)
+        errors: list[str] = []
+        for idx, result in enumerate(results):
+            if isinstance(result, Exception):
+                provider_name = tasks[idx][0]
+                errors.append(f"{provider_name}: {result}")
+
+        if len(errors) == len(tasks):
+            raise RuntimeError(f"All messenger providers failed: {'; '.join(errors)}")
+        return
+
+    if MAX_BOT_TOKEN and MAX_CHAT_ID:
+        await send_max_message(text)
+        return
+    await send_telegram_message(text)
 
 
 def format_webhook_message(source: str, data: dict) -> str:
@@ -118,7 +180,13 @@ async def contact(form: ContactForm) -> dict[str, str]:
         f"💬 <b>Сообщение:</b>\n{form.message}"
     )
     
-    await send_telegram_message(message_text)
+    try:
+        await send_notification_message(message_text)
+    except (httpx.HTTPError, RuntimeError, ValueError) as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="Не удалось отправить сообщение в мессенджер. Повторите попытку позже.",
+        ) from exc
     return {"status": "success"}
 
 
@@ -165,7 +233,7 @@ async def webhook(webhook_data: WebhookData) -> dict[str, str]:
     }
     """
     message_text = format_webhook_message(webhook_data.source, webhook_data.data)
-    await send_telegram_message(message_text)
+    await send_notification_message(message_text)
     return {"status": "success", "source": webhook_data.source}
 
 
