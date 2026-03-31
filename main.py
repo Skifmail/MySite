@@ -321,6 +321,12 @@ async def zen_verification() -> FileResponse:
     )
 
 
+@app.get("/6b1dfffd6859a54366e0586ae29260b8.txt", response_class=FileResponse)
+async def spaceweb_verification() -> FileResponse:
+    """SpaceWeb partner verification file."""
+    return FileResponse("static/6b1dfffd6859a54366e0586ae29260b8.txt")
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
     """Health check endpoint."""
