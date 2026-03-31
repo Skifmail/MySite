@@ -160,7 +160,30 @@ section { padding: 100px 0; position: relative; }
     letter-spacing: -0.03em;
     margin-bottom: 18px;
 }
-.hero-name .line2 { color: var(--accent); }
+/* Логотип вместо текста: убираем «пустую» высоту от font-size у h1 */
+.hero-name.hero-name-logo {
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: 0;
+    margin-bottom: 22px;
+    width: min(100%, 400px);
+    max-width: 100%;
+}
+.hero-logo-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: clamp(56px, 12vw, 96px);
+    object-fit: contain;
+    object-position: left center;
+    filter: drop-shadow(0 8px 24px rgba(0, 229, 255, 0.18));
+}
+.hero-left:has(.hero-name-logo) .hero-tag {
+    margin-bottom: 16px;
+}
+.hero-left:has(.hero-name-logo) .hero-subtitle {
+    margin-left: 0;
+}
 .hero-subtitle {
     font-size: 1.05rem;
     color: var(--muted);
@@ -1043,10 +1066,30 @@ section { padding: 100px 0; position: relative; }
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
-    margin-top: 60px;
+    margin-top: 28px;
     align-items: start;
 }
-.contact-links { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.contact-intro {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 520px;
+}
+.contact-info {
+    margin-top: 90px;
+}
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: -183px;
+}
 .contact-link {
     display: flex; align-items: center; gap: 14px;
     padding: 16px 20px;
@@ -1068,7 +1111,6 @@ section { padding: 100px 0; position: relative; }
 .contact-link-text strong { display: block; font-size: 0.9rem; font-weight: 600; }
 .contact-link-text span { font-size: 0.78rem; color: var(--muted); }
 
-.contact-form { display: flex; flex-direction: column; gap: 16px; }
 .form-group { display: flex; flex-direction: column; gap: 8px; }
 .form-group label {
     font-size: 0.8rem;
@@ -1233,9 +1275,40 @@ footer a:hover { color: var(--text); }
 /* ─── RESPONSIVE ────────────────────────────── */
 @media (max-width: 900px) {
     .hero-grid { width: 100%; margin-left: 0; grid-template-columns: 1fr; gap: 28px; }
-    .hero-left { padding-left: 0; }
-    .hero-right { padding-right: 0; }
-    .hero-right { justify-content: flex-start; }
+    .hero-left {
+        padding-left: 0;
+        align-items: center;
+        text-align: center;
+    }
+    .hero-left:has(.hero-name-logo) .hero-tag {
+        margin-bottom: 14px;
+    }
+    .hero-name.hero-name-logo {
+        width: min(100%, 320px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .hero-logo-img {
+        object-position: center center;
+        max-height: clamp(48px, 14vw, 80px);
+    }
+    .hero-subtitle {
+        margin-left: 0;
+        max-width: 38rem;
+    }
+    .hero-btns {
+        justify-content: center;
+    }
+    .hero-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .hero-right {
+        padding-right: 0;
+        width: 100%;
+        justify-content: center;
+    }
     .hero-card { margin-top: 0; width: 100%; margin-left: 0; }
     .services-grid { grid-template-columns: 1fr 1fr; }
     .portfolio-grid { grid-template-columns: 1fr; }
@@ -1244,6 +1317,7 @@ footer a:hover { color: var(--text); }
     .testimonials-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr 1fr; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-form { margin-top: 0; }
     .spaceweb-main { grid-template-columns: 1fr; }
     .spaceweb-title { max-width: none; font-size: 1.5rem; }
     .spaceweb-subtitle { max-width: none; }
@@ -1261,6 +1335,7 @@ footer a:hover { color: var(--text); }
     .pricing-grid { grid-template-columns: 1fr; }
     .process-steps { grid-template-columns: 1fr 1fr; }
     .nav-links { display: none; }
+    .hero-name.hero-name-logo { width: min(100%, 280px); }
     .hero-stats { gap: 20px; }
     .hero-stats { flex-wrap: wrap; }
     .hero-subtitle { margin-left: 0; }
