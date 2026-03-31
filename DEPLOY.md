@@ -74,15 +74,20 @@ systemctl status email_forwarder
 
 ## 6. Настройка Nginx (Веб-сервер)
 
-Скопируйте конфиг nginx:
+**Важно:** не копируйте на сервер только HTTP-вариант поверх уже настроенного certbot-конфига — пропадёт `listen 443`, и `curl` начнёт отдавать код **`000`** (нет TLS-ответа).
+
+- **Первый раз (ещё нет SSL):** скопируйте `deploy/nginx.http-only.conf`, затем раздел 7 (certbot).
+- **Сертификаты уже есть:** скопируйте `deploy/nginx.conf`, проверьте пути к ключам:  
+  `ls /etc/letsencrypt/live/aleks-shataylo.ru/`
+
 ```bash
+# вариант с уже выданным Let's Encrypt:
 cp deploy/nginx.conf /etc/nginx/sites-available/mysite
+# первый деплой без SSL:
+# cp deploy/nginx.http-only.conf /etc/nginx/sites-available/mysite
 ```
 
-Откройте его и замените `your-domain.ru` на ваш реальный домен (или IP, если домена пока нет):
-```bash
-nano /etc/nginx/sites-available/mysite
-```
+При смене домена отредактируйте `server_name` и пути `/etc/letsencrypt/live/…` в файле.
 
 Активируйте сайт:
 ```bash
@@ -91,6 +96,8 @@ rm /etc/nginx/sites-enabled/default  # Удаляем дефолтный сай�
 nginx -t  # Проверка конфига
 systemctl restart nginx
 ```
+
+Если `nginx -t` ругается на `ssl_dhparam`, создайте файл (`certbot` обычно уже положил его в `/etc/letsencrypt/ssl-dhparams.pem`) или временно закомментируйте строку `ssl_dhparam`.
 
 ## 7. Подключение HTTPS (SSL)
 
@@ -101,23 +108,23 @@ apt install certbot python3-certbot-nginx -y
 certbot --nginx -d ваш-домен.ru -d www.ваш-домен.ru
 ```
 
-Следуйте инструкциям на экране. Certbot сам обновит конфиг Nginx.
+Следуйте инструкциям на экране. После успешной выдачи сертификата **замените** конфиг на полный из репозитория (`deploy/nginx.conf`), чтобы были редиректы **и на 80, и на 443** для `www`, и единый канонический URL.
 
 ### Редирект www → без www (важно для SEO)
 
-Если и `https://aleks-shataylo.ru`, и `https://www.aleks-shataylo.ru` открываются без редиректа, поисковики видят **дубликат**. В `deploy/nginx.conf` для порта **80** уже отдельный `server` с `return 301` для `www`.
+Файл `deploy/nginx.conf` уже содержит отдельные `server` для `www` с `return 301 https://aleks-shataylo.ru$request_uri` на портах **80** и **443**.
 
-После **certbot** проверьте файл сайта в `/etc/nginx/sites-enabled/`:
-
-- Должен быть отдельный блок `listen 443 ssl` с `server_name www.aleks-shataylo.ru` и строкой  
-  `return 301 https://aleks-shataylo.ru$request_uri;`
-- Если certbot оставил только один SSL-блок на оба имени — добавьте второй блок только для `www` с редиректом (как для порта 80).
-
-Проверка с компьютера:
+Проверка (лучше с **внешней** машины или с телефона; с самого VPS `curl https://ваш-домен` иногда даёт `000` из‑за hairpin NAT):
 
 ```bash
 curl -sI https://www.aleks-shataylo.ru/ | head -5
-# Ожидается: HTTP/2 301 и Location: https://aleks-shataylo.ru/
+# Ожидается: 301 и Location: https://aleks-shataylo.ru/
+```
+
+Локально на сервере без hairpin:
+
+```bash
+curl -sI --resolve www.aleks-shataylo.ru:443:127.0.0.1 https://www.aleks-shataylo.ru/ | head -5
 ```
 
 ---
