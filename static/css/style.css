@@ -18,6 +18,18 @@
 
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 body {
     background: var(--bg);
     color: var(--text);
@@ -1077,7 +1089,7 @@ section { padding: 100px 0; position: relative; }
     max-width: 520px;
 }
 .contact-info {
-    margin-top: 90px;
+    margin-top: 24px;
 }
 .contact-links {
     display: flex;
@@ -1088,7 +1100,7 @@ section { padding: 100px 0; position: relative; }
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: -183px;
+    margin-top: 0;
 }
 .contact-link {
     display: flex; align-items: center; gap: 14px;
