@@ -259,7 +259,8 @@
                 name: form.name.value,
                 contact: form.contact.value,
                 email: form.email.value,
-                message: form.message.value
+                message: form.message.value,
+                consent: form.consent.checked
             };
             fetch('/api/contact', {
                 method: 'POST',

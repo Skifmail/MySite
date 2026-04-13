@@ -834,7 +834,10 @@
                     <label for="contact-message">Задача</label>
                     <textarea id="contact-message" name="message" placeholder="Опишите, что нужно сделать..." required></textarea>
                 </div>
-                <p style="font-size:0.75rem; color: var(--muted); line-height: 1.5;">Нажимая «Отправить», вы даёте согласие на обработку персональных данных согласно <a href="/privacy" style="color:var(--accent)">Политике конфиденциальности</a>.</p>
+                <label class="consent-checkbox" for="contact-consent">
+                    <input id="contact-consent" type="checkbox" name="consent" required>
+                    <span>Я даю согласие на обработку персональных данных согласно <a href="/privacy">Политике конфиденциальности</a>.</span>
+                </label>
                 <button type="submit" class="form-submit">Отправить →</button>
             </form>
         </div>

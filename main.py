@@ -37,6 +37,7 @@ class ContactForm(BaseModel):
     contact: str
     email: EmailStr
     message: str
+    consent: bool
 
 
 class WebhookData(BaseModel):
@@ -221,6 +222,12 @@ async def offer() -> str:
 @app.post("/api/contact")
 async def contact(form: ContactForm) -> dict[str, str]:
     """Handle contact form submission and send to all configured channels."""
+    if not form.consent:
+        raise HTTPException(
+            status_code=422,
+            detail="Необходимо подтвердить согласие на обработку персональных данных.",
+        )
+
     message_text = (
         f"📬 <b>Новое сообщение с сайта-портфолио</b>\n\n"
         f"👤 <b>Имя:</b> {form.name}\n"
