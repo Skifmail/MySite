@@ -4,6 +4,9 @@
 
 (function () {
     'use strict';
+    var PRIVACY_CONSENT_KEY = 'privacyConsent';
+    var YANDEX_METRIKA_COUNTER_ID = 105449512;
+    var yandexMetrikaLoaded = false;
 
     // ─── Canvas Background ─────────────────────────────────────────
     function initCanvas() {
@@ -291,20 +294,72 @@
     }
 
     // ─── Privacy notice ───────────────────────────────────────────
+    function loadYandexMetrika() {
+        if (yandexMetrikaLoaded) return;
+        yandexMetrikaLoaded = true;
+
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) {
+                if (document.scripts[j].src === r) return;
+            }
+            k = e.createElement(t);
+            a = e.getElementsByTagName(t)[0];
+            k.async = 1;
+            k.src = r;
+            a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+        window.ym(YANDEX_METRIKA_COUNTER_ID, 'init', {
+            ssr: true,
+            webvisor: true,
+            clickmap: true,
+            ecommerce: 'dataLayer',
+            accurateTrackBounce: true,
+            trackLinks: true
+        });
+    }
+
     function acceptPrivacy() {
         try {
-            localStorage.setItem('privacyConsent', 'accepted');
+            localStorage.setItem(PRIVACY_CONSENT_KEY, 'accepted');
+        } catch (e) {}
+        var notice = document.getElementById('privacyNotice');
+        if (notice) notice.classList.add('hidden');
+        loadYandexMetrika();
+    }
+
+    function declinePrivacy() {
+        try {
+            localStorage.setItem(PRIVACY_CONSENT_KEY, 'rejected');
         } catch (e) {}
         var notice = document.getElementById('privacyNotice');
         if (notice) notice.classList.add('hidden');
     }
+
+    function managePrivacyPreferences() {
+        try {
+            localStorage.removeItem(PRIVACY_CONSENT_KEY);
+        } catch (e) {}
+        var notice = document.getElementById('privacyNotice');
+        if (notice) notice.classList.remove('hidden');
+    }
     window.acceptPrivacy = acceptPrivacy;
+    window.declinePrivacy = declinePrivacy;
+    window.managePrivacyPreferences = managePrivacyPreferences;
 
     function initPrivacy() {
         try {
-            if (localStorage.getItem('privacyConsent') === 'accepted') {
-                var notice = document.getElementById('privacyNotice');
+            var consentValue = localStorage.getItem(PRIVACY_CONSENT_KEY);
+            var notice = document.getElementById('privacyNotice');
+            if (consentValue === 'accepted') {
                 if (notice) notice.classList.add('hidden');
+                loadYandexMetrika();
+                return;
+            }
+            if (consentValue === 'rejected' && notice) {
+                notice.classList.add('hidden');
             }
         } catch (e) {}
     }

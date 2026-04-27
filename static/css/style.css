@@ -1290,6 +1290,23 @@ footer a:hover { color: var(--text); }
     flex-shrink: 0;
     font-family: var(--font-display);
 }
+.privacy-btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.footer-link-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    font: inherit;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.footer-link-btn:hover {
+    color: var(--accent);
+}
 
 .reveal {
     opacity: 0;
