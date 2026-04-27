@@ -212,6 +212,16 @@
                 { image: '/static/images/ostorozhno_3.png', title: 'Кейсы и визуальный стиль', description: 'Демонстрация оформленных проектов и атмосферы бренда через контентные секции.' },
                 { image: '/static/images/ostorozhno_4.png', title: 'Instagram* виджет', description: 'Автоматически обновляемый виджет, подключенный к страничке заказчика.' }
             ]
+        },
+        naydansan: {
+            title: 'Сайт-визитка Александра Найданова',
+            description: 'Персональный сайт-визитка для стендап-комика и ведущего Александра Найданова. Сайт: <a href="https://www.naydansan.ru" target="_blank" rel="noopener">www.naydansan.ru</a>.',
+            screenshots: [
+                { image: '/static/images/naydansan_1.png', title: '', description: '' },
+                { image: '/static/images/naydansan_2.png', title: '', description: '' },
+                { image: '/static/images/naydansan_3.png', title: '', description: '' },
+                { image: '/static/images/naydansan_4.png', title: '', description: '' }
+            ]
         }
     };
 
