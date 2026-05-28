@@ -890,6 +890,10 @@
     <a class="contact-qr-link" href="https://www.aleks-shataylo.ru" target="_blank" rel="noopener">www.aleks-shataylo.ru</a>
 </aside>
 
+<a class="contact-save-mobile-btn" href="/contact.vcf" aria-label="Сохранить контакт Александра Шатайло">
+    Сохранить контакт
+</a>
+
 <style>
     .contact-qr-widget {
         position: fixed;
@@ -954,34 +958,44 @@
         border-bottom-color: rgba(255, 255, 255, 0.8);
     }
 
+    .contact-save-mobile-btn {
+        display: none;
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 1450;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #00d1ff, #43a4ff);
+        color: #041423;
+        font-weight: 700;
+        font-size: 0.78rem;
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(8, 19, 37, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(6px);
+    }
+
+    .contact-save-mobile-btn:active {
+        transform: translateY(1px);
+    }
+
     @media (max-width: 900px) {
         .contact-qr-widget {
-            width: 186px;
-            right: 12px;
-            bottom: 12px;
-            border-radius: 14px;
-            padding: 10px;
+            display: none;
         }
 
-        .contact-qr-badge {
-            font-size: 0.64rem;
-            margin-bottom: 8px;
+        .contact-save-mobile-btn {
+            display: inline-block;
         }
+    }
 
-        .contact-qr-image {
-            width: 124px;
-            height: 124px;
-            padding: 6px;
-            margin-bottom: 7px;
-        }
-
-        .contact-qr-name {
-            font-size: 0.82rem;
-        }
-
-        .contact-qr-role,
-        .contact-qr-link {
-            font-size: 0.72rem;
+    @media (max-width: 420px) {
+        .contact-save-mobile-btn {
+            right: 10px;
+            bottom: 10px;
+            font-size: 0.74rem;
+            padding: 9px 12px;
         }
     }
 </style>
