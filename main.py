@@ -334,6 +334,16 @@ async def spaceweb_verification() -> FileResponse:
     return FileResponse("static/6b1dfffd6859a54366e0586ae29260b8.txt")
 
 
+@app.get("/contact.vcf", response_class=FileResponse)
+async def contact_card() -> FileResponse:
+    """Возвращает VCF-визитку для сохранения контакта.
+
+    Returns:
+        FileResponse: Файл `contact.vcf` из статической директории.
+    """
+    return FileResponse("static/contact.vcf", media_type="text/vcard")
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
     """Health check endpoint."""

@@ -882,6 +882,123 @@
     <button type="button" class="privacy-btn privacy-btn-secondary" onclick="declinePrivacy()">Отказаться</button>
 </div>
 
+<aside class="contact-qr-widget" aria-label="QR-код для сохранения контакта">
+    <div class="contact-qr-badge">Сохранить контакт</div>
+    <img id="contactQrImage" class="contact-qr-image" src="" alt="QR-код для сохранения контакта Александра Шатайло">
+    <div class="contact-qr-name">Шатайло Александр</div>
+    <div class="contact-qr-role">Программист</div>
+    <a class="contact-qr-link" href="https://www.aleks-shataylo.ru" target="_blank" rel="noopener">www.aleks-shataylo.ru</a>
+</aside>
+
+<style>
+    .contact-qr-widget {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 1400;
+        width: 236px;
+        padding: 14px;
+        border-radius: 18px;
+        background: linear-gradient(155deg, rgba(15, 19, 34, 0.92), rgba(34, 44, 78, 0.88));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(124, 115, 255, 0.2) inset;
+        backdrop-filter: blur(8px);
+        color: #f7f8ff;
+        text-align: center;
+    }
+
+    .contact-qr-badge {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: rgba(124, 115, 255, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .contact-qr-image {
+        display: block;
+        width: 170px;
+        height: 170px;
+        margin: 0 auto 9px;
+        border-radius: 12px;
+        background: #ffffff;
+        padding: 6px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .contact-qr-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+    }
+
+    .contact-qr-role {
+        font-size: 0.8rem;
+        color: rgba(240, 242, 255, 0.88);
+        margin-bottom: 6px;
+    }
+
+    .contact-qr-link {
+        font-size: 0.78rem;
+        color: #b8d7ff;
+        text-decoration: none;
+        border-bottom: 1px dashed rgba(184, 215, 255, 0.5);
+    }
+
+    .contact-qr-link:hover {
+        color: #ffffff;
+        border-bottom-color: rgba(255, 255, 255, 0.8);
+    }
+
+    @media (max-width: 900px) {
+        .contact-qr-widget {
+            width: 186px;
+            right: 12px;
+            bottom: 12px;
+            border-radius: 14px;
+            padding: 10px;
+        }
+
+        .contact-qr-badge {
+            font-size: 0.64rem;
+            margin-bottom: 8px;
+        }
+
+        .contact-qr-image {
+            width: 124px;
+            height: 124px;
+            padding: 6px;
+            margin-bottom: 7px;
+        }
+
+        .contact-qr-name {
+            font-size: 0.82rem;
+        }
+
+        .contact-qr-role,
+        .contact-qr-link {
+            font-size: 0.72rem;
+        }
+    }
+</style>
+
+<script>
+    (function initContactQrWidget() {
+        const qrImage = document.getElementById("contactQrImage");
+        if (!qrImage) {
+            return;
+        }
+
+        const qrContactUrl = "https://www.aleks-shataylo.ru/contact.vcf";
+        const qrData = encodeURIComponent(qrContactUrl);
+        qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=700x700&ecc=L&margin=1&data=" + qrData;
+    })();
+</script>
+
 <script src="/static/js/script.js"></script>
 </body>
 </html>
